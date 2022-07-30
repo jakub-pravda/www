@@ -1,3 +1,6 @@
+#Alternate default index page
+DirectoryIndex main.html
+
 RewriteEngine On
 RewriteCond %{SERVER_PORT} 80
 RewriteRule ^(.*)$ https://www.zahradnictvi-sramek.cz/$1 [R,L]
