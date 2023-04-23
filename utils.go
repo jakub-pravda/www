@@ -6,6 +6,7 @@ import (
 	"os"
 	"log"
 	"mime"
+	"path/filepath"
 	"strings"
 )
 
@@ -34,14 +35,16 @@ func filesToBucketObjects(ctx *pulumi.Context, accessBlock *s3.BucketPublicAcces
 	return buckets, nil
 }
 
-func bucketObjectConverter(ctx *pulumi.Context, accessBlock *s3.BucketPublicAccessBlock, bucket *s3.Bucket, filepath string) (*s3.BucketObject, error) {
-	mimeType := mime.TypeByExtension(filepath)
-	dstFilePath := strings.Replace(filepath, wwwDir, "", 1)
-	return s3.NewBucketObject(ctx, filepath, &s3.BucketObjectArgs{
+func bucketObjectConverter(ctx *pulumi.Context, accessBlock *s3.BucketPublicAccessBlock, bucket *s3.Bucket, path string) (*s3.BucketObject, error) {
+	mimeType := mime.TypeByExtension(filepath.Ext(path))
+	dstFilePath := strings.Replace(path, wwwDir, "", 1)
+
+	log.Printf("Converting file %s to bucket object with mime type %s\n", path, mimeType)
+	return s3.NewBucketObject(ctx, path, &s3.BucketObjectArgs{
 		Key: 			pulumi.String(dstFilePath),
 		Bucket: 		bucket.ID(),
 		Acl: 			pulumi.String("public-read"),
-		Source: 		pulumi.NewFileAsset(filepath),
+		Source: 		pulumi.NewFileAsset(path),
 		ContentType: 	pulumi.String(mimeType),
 	}, pulumi.DependsOn([]pulumi.Resource{accessBlock}))
 }
