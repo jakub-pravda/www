@@ -10,10 +10,12 @@ import (
 	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws/route53"
 	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws/s3"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
 )
 
-var nameId = "sramek-garden-store" // TODO move to the pulumi config
-var targetDomain = "zahradnictvi-sramek.cz" // TODO move to the pulumi config
+var (
+	wwwGardenCenter = "garden-center"
+)
 
 func main() {
 	// What I'm using:
@@ -25,8 +27,14 @@ func main() {
 	log.Println("Deploying infrastructure for our static websites")
 
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		contentBucket := createS3Bucket(ctx)
-		cdn := instantiateCloudfront(ctx, contentBucket)	
+		// TODO do it more versatile
+		gardenCenterConfig := config.New(ctx, wwwGardenCenter)
+		wwwDir := gardenCenterConfig.Require("dir")
+		targetDomain := gardenCenterConfig.Require("domain")
+		log.Printf("Deploy WWW id: %s, dir: %s, domain: %s", wwwGardenCenter, wwwDir, targetDomain)
+
+		contentBucket := createS3Bucket(ctx, wwwGardenCenter, wwwDir)
+		cdn := instantiateCloudfront(ctx, contentBucket, targetDomain)	
 		createAliasRecord(ctx, targetDomain ,cdn)
 
 		// Export the pulumi outputs
@@ -39,10 +47,10 @@ func main() {
 	})
 }
 
-func createS3Bucket(ctx *pulumi.Context) *s3.Bucket {
+func createS3Bucket(ctx *pulumi.Context, name string, wwwDir string) *s3.Bucket {
 	log.Println("Creating content S3 bucket")
 	
-	bucketName := fmt.Sprintf("%s-bucket", nameId)
+	bucketName := fmt.Sprintf("%s-bucket", name)
 	bucket, err := s3.NewBucket(ctx, bucketName, &s3.BucketArgs{
 		Website: s3.BucketWebsiteArgs{
 			IndexDocument: pulumi.String("main.html"),
@@ -60,11 +68,11 @@ func createS3Bucket(ctx *pulumi.Context) *s3.Bucket {
     	BlockPublicAcls: pulumi.Bool(false),
 	}); handleErr(err)
 	// create S3 buckets with web content
-	_, err = filesToBucketObjects(ctx, publicAccessBlock, bucket, "./www"); handleErr(err)
+	_, err = filesToBucketObjects(ctx, publicAccessBlock, bucket, wwwDir); handleErr(err)
 	return bucket
 }
 
-func getArnCertificate(ctx *pulumi.Context) pulumi.StringOutput {
+func getArnCertificate(ctx *pulumi.Context, targetDomain string) pulumi.StringOutput {
 	eastRegion, err := aws.NewProvider(ctx, "east", &aws.ProviderArgs{
 		Region: pulumi.String("us-east-1"), // AWS Certificate Manager is not available in other regions
 	})
@@ -108,7 +116,7 @@ func getArnCertificate(ctx *pulumi.Context) pulumi.StringOutput {
 	return certValidation.CertificateArn
 }
 
-func instantiateCloudfront(ctx *pulumi.Context, contentBucket *s3.Bucket) *cloudfront.Distribution {
+func instantiateCloudfront(ctx *pulumi.Context, contentBucket *s3.Bucket, targetDomain string) *cloudfront.Distribution {
 	log.Println("Creating Cloudfront distribution")
 	
 
@@ -174,7 +182,7 @@ func instantiateCloudfront(ctx *pulumi.Context, contentBucket *s3.Bucket) *cloud
 		
 		// Use the distribution certificate
 		ViewerCertificate: cloudfront.DistributionViewerCertificateArgs {
-			AcmCertificateArn: getArnCertificate(ctx),
+			AcmCertificateArn: getArnCertificate(ctx, targetDomain),
 			SslSupportMethod: pulumi.String("sni-only"),
 		},
 		
