@@ -7,7 +7,6 @@ import (
 	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws"
 	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws/acm"
 	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws/cloudfront"
-	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws/route53"
 	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws/s3"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
@@ -81,18 +80,16 @@ func createS3Bucket(ctx *pulumi.Context, name string, wwwDir string) *s3.Bucket 
 	return bucket
 }
 
-func getArnCertificate(ctx *pulumi.Context, targetDomain string) pulumi.StringOutput {
+func getArnCertificate(ctx *pulumi.Context, targetDomain string, subdomains []string) pulumi.StringOutput {
 	eastRegion, err := aws.NewProvider(ctx, "east", &aws.ProviderArgs{
 		Region: pulumi.String("us-east-1"), // AWS Certificate Manager is not available in other regions
 	})
 
 	// generate certificate for our domain
 	certificate, err := acm.NewCertificate(ctx, "certificate", &acm.CertificateArgs{
-		DomainName:       pulumi.String(targetDomain),
-		ValidationMethod: pulumi.String("DNS"),
-		SubjectAlternativeNames: pulumi.StringArray{
-			pulumi.String(fmt.Sprintf("www.%s", targetDomain)),
-		},
+		DomainName:              pulumi.String(targetDomain),
+		ValidationMethod:        pulumi.String("DNS"),
+		SubjectAlternativeNames: stringArrayToPulumiStringArray(subdomains),
 	}, pulumi.Provider(eastRegion))
 	handleErr(err)
 
@@ -100,53 +97,11 @@ func getArnCertificate(ctx *pulumi.Context, targetDomain string) pulumi.StringOu
 	handleErr(err)
 	log.Printf("DNS Hosted zone: %s", zoneId)
 
-	// Create a DNS record to prove we own the domain
-	certValidationDomain1, err := route53.NewRecord(ctx, fmt.Sprintf("%s-validation-1", targetDomain), &route53.RecordArgs{
-		Name: certificate.DomainValidationOptions.ApplyT(func(options []acm.CertificateDomainValidationOption) string {
-			resourceRecordName := options[0].ResourceRecordName
-			log.Printf("DNS resource record name: %v", resourceRecordName)
-			return *resourceRecordName
-		}).(pulumi.StringOutput),
-		Type: certificate.DomainValidationOptions.ApplyT(func(options []acm.CertificateDomainValidationOption) string {
-			resourceRecordType := options[0].ResourceRecordType
-			log.Printf("DNS resource record type: %v", resourceRecordType)
-			return *resourceRecordType
-		}).(pulumi.StringOutput),
-		Records: pulumi.StringArray{
-			certificate.DomainValidationOptions.ApplyT(func(options []acm.CertificateDomainValidationOption) string {
-				recordValue := options[0].ResourceRecordValue
-				log.Printf("DNS record value: %v", recordValue)
-				return *recordValue
-			}).(pulumi.StringOutput)},
-		ZoneId: pulumi.String(zoneId),
-		Ttl:    pulumi.Int(60),
-	})
-	handleErr(err)
-	certValidationDomain2, err := route53.NewRecord(ctx, fmt.Sprintf("%s-validation-2", targetDomain), &route53.RecordArgs{
-		Name: certificate.DomainValidationOptions.ApplyT(func(options []acm.CertificateDomainValidationOption) string {
-			resourceRecordName := options[1].ResourceRecordName
-			log.Printf("DNS resource record name: %v", resourceRecordName)
-			return *resourceRecordName
-		}).(pulumi.StringOutput),
-		Type: certificate.DomainValidationOptions.ApplyT(func(options []acm.CertificateDomainValidationOption) string {
-			resourceRecordType := options[1].ResourceRecordType
-			log.Printf("DNS resource record type: %v", resourceRecordType)
-			return *resourceRecordType
-		}).(pulumi.StringOutput),
-		Records: pulumi.StringArray{
-			certificate.DomainValidationOptions.ApplyT(func(options []acm.CertificateDomainValidationOption) string {
-				recordValue := options[1].ResourceRecordValue
-				log.Printf("DNS record value: %v", recordValue)
-				return *recordValue
-			}).(pulumi.StringOutput)},
-		ZoneId: pulumi.String(zoneId),
-		Ttl:    pulumi.Int(60),
-	})
-	handleErr(err)
+	validationRecords := createValidationRecords(ctx, append(subdomains, targetDomain), certificate, zoneId)
 
 	certValidation, err := acm.NewCertificateValidation(ctx, "certificate-validation", &acm.CertificateValidationArgs{
 		CertificateArn:        certificate.Arn,
-		ValidationRecordFqdns: pulumi.StringArray{certValidationDomain1.Fqdn, certValidationDomain2.Fqdn},
+		ValidationRecordFqdns: mapValidationRecordsFqdn(validationRecords),
 	}, pulumi.Provider(eastRegion))
 	handleErr(err)
 
@@ -221,7 +176,7 @@ func instantiateCloudfront(ctx *pulumi.Context, contentBucket *s3.Bucket, target
 
 		// Use the distribution certificate
 		ViewerCertificate: cloudfront.DistributionViewerCertificateArgs{
-			AcmCertificateArn: getArnCertificate(ctx, targetDomain),
+			AcmCertificateArn: getArnCertificate(ctx, targetDomain, subdomains),
 			SslSupportMethod:  pulumi.String("sni-only"),
 		},
 

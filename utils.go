@@ -2,12 +2,14 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"log"
 	"mime"
 	"os"
 	"path/filepath"
 	"strings"
 
+	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws/acm"
 	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws/cloudfront"
 	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws/route53"
 	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws/s3"
@@ -137,4 +139,42 @@ func createAliasRecords(ctx *pulumi.Context, distribution *cloudfront.Distributi
 	for _, domain := range domains {
 		createAliasRecord(ctx, distribution, domain)
 	}
+}
+
+func createValidationRecords(ctx *pulumi.Context, domains []string, certificate *acm.Certificate, hostedZoneId string) []*route53.Record {
+	records := make([]*route53.Record, len(domains))
+
+	for i, domain := range domains {
+		certValidationDomain, err := route53.NewRecord(ctx, fmt.Sprintf("%s-validation", domain), &route53.RecordArgs{
+			Name: certificate.DomainValidationOptions.ApplyT(func(options []acm.CertificateDomainValidationOption) string {
+				resourceRecordName := options[i].ResourceRecordName
+				log.Printf("Domain: %s, DNS resource record name: %v", domain, resourceRecordName)
+				return *resourceRecordName
+			}).(pulumi.StringOutput),
+			Type: certificate.DomainValidationOptions.ApplyT(func(options []acm.CertificateDomainValidationOption) string {
+				resourceRecordType := options[i].ResourceRecordType
+				log.Printf("Domain %s, DNS resource record type: %v", domain, resourceRecordType)
+				return *resourceRecordType
+			}).(pulumi.StringOutput),
+			Records: pulumi.StringArray{
+				certificate.DomainValidationOptions.ApplyT(func(options []acm.CertificateDomainValidationOption) string {
+					recordValue := options[i].ResourceRecordValue
+					log.Printf("Domain %s, DNS record value: %v", domain, recordValue)
+					return *recordValue
+				}).(pulumi.StringOutput)},
+			ZoneId: pulumi.String(hostedZoneId),
+			Ttl:    pulumi.Int(60),
+		})
+		handleErr(err)
+		records[i] = certValidationDomain
+	}
+	return records
+}
+
+func mapValidationRecordsFqdn(validationRecords []*route53.Record) pulumi.StringArray {
+	fqdnArray := make(pulumi.StringArray, len(validationRecords))
+	for i, record := range validationRecords {
+		fqdnArray[i] = record.Fqdn
+	}
+	return fqdnArray
 }
