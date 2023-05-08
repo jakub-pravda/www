@@ -17,7 +17,7 @@ var (
 )
 
 func main() {
-	// What I'm using:
+	// Static website deployment using AWS:
 	// -- s3 bucket
 	// -- cloudfront
 	// -- route53
@@ -26,7 +26,7 @@ func main() {
 	log.Println("Deploying infrastructure for our static websites")
 
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		// TODO do it more versatile
+		// TODO make it more versatile
 		gardenCenterConfig := config.New(ctx, wwwGardenCenter)
 		wwwDir := gardenCenterConfig.Require("dir")
 		targetDomain := gardenCenterConfig.Require("domain")
@@ -172,14 +172,13 @@ func instantiateCloudfront(ctx *pulumi.Context, contentBucket *s3.Bucket, target
 				RestrictionType: pulumi.String("none"),
 			},
 		},
-		// It takes around 15min to create cloudfront distribution, so we don't want to wait for it
-
 		// Use the distribution certificate
 		ViewerCertificate: cloudfront.DistributionViewerCertificateArgs{
 			AcmCertificateArn: getArnCertificate(ctx, targetDomain, subdomains),
 			SslSupportMethod:  pulumi.String("sni-only"),
 		},
 
+		// It takes around 15min to create cloudfront distribution, so we don't want to wait for it
 		WaitForDeployment: pulumi.Bool(false),
 	})
 	handleErr(err)

@@ -44,7 +44,7 @@ func filesToBucketObjects(ctx *pulumi.Context, accessBlock *s3.BucketPublicAcces
 
 func bucketObjectConverter(ctx *pulumi.Context, accessBlock *s3.BucketPublicAccessBlock, bucket *s3.Bucket, path string) (*s3.BucketObject, error) {
 	mimeType := mime.TypeByExtension(filepath.Ext(path))
-	// remove wwwDir from the path (as we want to save files directly to the bucket root)
+	// Remove wwwDir from the path (as we want to save files directly to the bucket root)
 	dstFilePath := removeRootDir(path)
 	log.Printf("Converting file %s to bucket object with mime type %s\n", path, mimeType)
 	return s3.NewBucketObject(ctx, path, &s3.BucketObjectArgs{
@@ -57,7 +57,7 @@ func bucketObjectConverter(ctx *pulumi.Context, accessBlock *s3.BucketPublicAcce
 }
 
 func getRoute53HostedZone(ctx *pulumi.Context, targetDomain string) (string, error) {
-	// returns new or existing hosted zone ID
+	// Returns new or existing hosted zone ID
 	log.Printf("Looking up hosted zone for domain %s\n", targetDomain)
 	zoneLookupFunc := func(domain string) (*route53.LookupZoneResult, error) {
 		return route53.LookupZone(ctx, &route53.LookupZoneArgs{
@@ -142,6 +142,7 @@ func createAliasRecords(ctx *pulumi.Context, distribution *cloudfront.Distributi
 }
 
 func createValidationRecords(ctx *pulumi.Context, domains []string, certificate *acm.Certificate, hostedZoneId string) []*route53.Record {
+	// Creates validation records for the given domains and certificate
 	records := make([]*route53.Record, len(domains))
 
 	for i, domain := range domains {
@@ -172,6 +173,7 @@ func createValidationRecords(ctx *pulumi.Context, domains []string, certificate 
 }
 
 func mapValidationRecordsFqdn(validationRecords []*route53.Record) pulumi.StringArray {
+	// Maps validation records to fqdn array
 	fqdnArray := make(pulumi.StringArray, len(validationRecords))
 	for i, record := range validationRecords {
 		fqdnArray[i] = record.Fqdn
