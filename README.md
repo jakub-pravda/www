@@ -1,6 +1,6 @@
 # WWWW
 
-This repository contains the source code for the WWWW projects under my administration
+This repository contains the source code for the WWW projects under my administration
 
 ## Projects
 
