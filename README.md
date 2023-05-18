@@ -1,4 +1,4 @@
-# WWWW
+# WWW
 
 This repository contains the source code for the WWW projects under my administration
 
