@@ -1,0 +1,15 @@
+# https://numtide.github.io/devshell
+[devshell]
+motd = '''
+{bold}{14}🔨 Welcome to the WWW shell! 🔨{reset}
+$(type -p menu &>/dev/null && menu)
+'''
+packages = [
+  "pulumi"
+]
+
+[[commands]]
+name = "hello"
+category = "Infrastructure"
+help = "Just say hello"
+command = "echo hello"
