@@ -13,8 +13,23 @@ import (
 )
 
 var (
-	wwwGardenCenter = "garden-center"
+	projects = []string{"garden-center"}
 )
+
+type WwwProject struct {
+	ProjectName string
+	ProjectDir  string
+	Domain      string
+}
+
+func getProjectConfig(ctx *pulumi.Context, projectName string) WwwProject {
+	projectConfig := config.New(ctx, projectName)
+	return WwwProject{
+		ProjectName: projectName,
+		ProjectDir:  projectConfig.Require("dir"),
+		Domain:      projectConfig.Require("domain"),
+	}
+}
 
 func main() {
 	// Static website deployment using AWS:
@@ -23,32 +38,36 @@ func main() {
 	// -- route53
 	// -- amazon certificate manager
 
-	log.Println("Deploying infrastructure for our static websites")
+	log.Println("Deploying static website infrastructure")
 
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		// TODO make it more versatile
-		gardenCenterConfig := config.New(ctx, wwwGardenCenter)
-		wwwDir := gardenCenterConfig.Require("dir")
-		targetDomain := gardenCenterConfig.Require("domain")
-		log.Printf("Deploy WWW id: %s, dir: %s, domain: %s", wwwGardenCenter, wwwDir, targetDomain)
-
-		// crate domain, subdomains array
-		subdomains, err := getDefaultSubdomains(targetDomain)
-		handleErr(err)
-		allDomains := append([]string{targetDomain}, subdomains...)
-
-		contentBucket := createS3Bucket(ctx, wwwGardenCenter, wwwDir)
-		cdn := instantiateCloudfront(ctx, contentBucket, targetDomain, subdomains)
-		createAliasRecords(ctx, cdn, allDomains)
-
-		// Export the pulumi outputs
-		ctx.Export("bucketName", contentBucket.ID())
-		ctx.Export("cloudfrontDomain", cdn.DomainName)
-		ctx.Export("bucketEndpoint", contentBucket.WebsiteEndpoint.ApplyT(func(websiteEndpoint string) (string, error) {
-			return fmt.Sprintf("http://%v", websiteEndpoint), nil
-		}).(pulumi.StringOutput))
+		// TODO what to do?
+		for _, projectName := range projects {
+			projectConfig := getProjectConfig(ctx, projectName)
+			deployProject(ctx, projectConfig)
+		}
 		return nil
 	})
+}
+
+func deployProject(ctx *pulumi.Context, project WwwProject) {
+	log.Printf("Deploy WWW id: %s, dir: %s, domain: %s", project.ProjectName, project.ProjectDir, project.Domain)
+
+	domains, err := getDomainWithSubdomains(project.Domain) // TODO empty domain
+	handleErr(err)
+
+	contentBucket := createS3Bucket(ctx, project.ProjectName, project.ProjectDir)
+
+	cdn := instantiateCloudfront(ctx, contentBucket, domains)
+	createAliasRecords(ctx, cdn, domains)
+
+	// Export the pulumi outputs
+	ctx.Export(fmt.Sprintf("%s-bucketName", project.ProjectName), contentBucket.ID())
+	ctx.Export(fmt.Sprintf("%s-cloudfrontDomain", project.ProjectName), cdn.DomainName)
+	ctx.Export(fmt.Sprintf("%s-bucketEndpoint", project.ProjectName), contentBucket.WebsiteEndpoint.ApplyT(func(websiteEndpoint string) (string, error) {
+		return fmt.Sprintf("http://%v", websiteEndpoint), nil
+	}).(pulumi.StringOutput))
 }
 
 func createS3Bucket(ctx *pulumi.Context, name string, wwwDir string) *s3.Bucket {
@@ -80,24 +99,25 @@ func createS3Bucket(ctx *pulumi.Context, name string, wwwDir string) *s3.Bucket 
 	return bucket
 }
 
-func getArnCertificate(ctx *pulumi.Context, targetDomain string, subdomains []string) pulumi.StringOutput {
+func getArnCertificate(ctx *pulumi.Context, domains []string) pulumi.StringOutput {
+	mainDomain := domains[0]
 	eastRegion, err := aws.NewProvider(ctx, "east", &aws.ProviderArgs{
-		Region: pulumi.String("us-east-1"), // AWS Certificate Manager is not available in other regions
+		Region: pulumi.String("us-east-1"), // AWS Certificate Manager is available only in us east region
 	})
 
 	// generate certificate for our domain
 	certificate, err := acm.NewCertificate(ctx, "certificate", &acm.CertificateArgs{
-		DomainName:              pulumi.String(targetDomain),
+		DomainName:              pulumi.String(mainDomain),
 		ValidationMethod:        pulumi.String("DNS"),
-		SubjectAlternativeNames: stringArrayToPulumiStringArray(subdomains),
+		SubjectAlternativeNames: stringArrayToPulumiStringArray(domains),
 	}, pulumi.Provider(eastRegion))
 	handleErr(err)
 
-	zoneId, err := getRoute53HostedZone(ctx, targetDomain)
+	zoneId, err := getRoute53HostedZone(ctx, mainDomain)
 	handleErr(err)
 	log.Printf("DNS Hosted zone: %s", zoneId)
 
-	validationRecords := createValidationRecords(ctx, append(subdomains, targetDomain), certificate, zoneId)
+	validationRecords := createValidationRecords(ctx, domains, certificate, zoneId)
 
 	certValidation, err := acm.NewCertificateValidation(ctx, "certificate-validation", &acm.CertificateValidationArgs{
 		CertificateArn:        certificate.Arn,
@@ -108,13 +128,13 @@ func getArnCertificate(ctx *pulumi.Context, targetDomain string, subdomains []st
 	return certValidation.CertificateArn
 }
 
-func instantiateCloudfront(ctx *pulumi.Context, contentBucket *s3.Bucket, targetDomain string, subdomains []string) *cloudfront.Distribution {
-	log.Printf("Creating Cloudfront distribution for domain: %s\n", targetDomain)
+func instantiateCloudfront(ctx *pulumi.Context, contentBucket *s3.Bucket, domains []string) *cloudfront.Distribution {
+	mainDomain := domains[0]
+	log.Printf("Creating Cloudfront distribution for domain: %s\n", mainDomain)
 
-	allDomains := append(subdomains, targetDomain)
 	logsBucket, err := s3.NewBucket(ctx, "requests-logs", &s3.BucketArgs{
 		Acl:    pulumi.String("private"),
-		Bucket: pulumi.String(fmt.Sprintf("%s-logs", targetDomain)),
+		Bucket: pulumi.String(fmt.Sprintf("%s-logs", mainDomain)),
 	})
 	handleErr(err)
 
@@ -128,7 +148,7 @@ func instantiateCloudfront(ctx *pulumi.Context, contentBucket *s3.Bucket, target
 
 	distribution, err := cloudfront.NewDistribution(ctx, "cdn", &cloudfront.DistributionArgs{
 		Enabled:           pulumi.Bool(true),
-		Aliases:           stringArrayToPulumiStringArray(allDomains),
+		Aliases:           stringArrayToPulumiStringArray(domains),
 		DefaultRootObject: pulumi.String("main.html"),
 		DefaultCacheBehavior: cloudfront.DistributionDefaultCacheBehaviorArgs{
 			TargetOriginId:       contentBucket.Arn,
@@ -163,7 +183,7 @@ func instantiateCloudfront(ctx *pulumi.Context, contentBucket *s3.Bucket, target
 		LoggingConfig: cloudfront.DistributionLoggingConfigArgs{
 			Bucket:         logsBucket.BucketDomainName,
 			IncludeCookies: pulumi.Bool(false),
-			Prefix:         pulumi.String(fmt.Sprintf("%s/", targetDomain)),
+			Prefix:         pulumi.String(fmt.Sprintf("%s/", mainDomain)),
 		},
 
 		// Set restrictions for our websites, at this moment we don't need any
@@ -174,7 +194,7 @@ func instantiateCloudfront(ctx *pulumi.Context, contentBucket *s3.Bucket, target
 		},
 		// Use the distribution certificate
 		ViewerCertificate: cloudfront.DistributionViewerCertificateArgs{
-			AcmCertificateArn: getArnCertificate(ctx, targetDomain, subdomains),
+			AcmCertificateArn: getArnCertificate(ctx, domains),
 			SslSupportMethod:  pulumi.String("sni-only"),
 		},
 

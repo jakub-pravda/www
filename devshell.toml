@@ -5,11 +5,18 @@ motd = '''
 $(type -p menu &>/dev/null && menu)
 '''
 packages = [
+  "go",
   "pulumi"
 ]
 
 [[commands]]
-name = "hello"
-category = "Infrastructure"
-help = "Just say hello"
-command = "echo hello"
+name = "build"
+category = "Code"
+help = "Build golang project"
+command = "go build"
+
+[[commands]]
+name = "deploy-preview"
+category = "Infra"
+help = "Preview Pulumi changes"
+command = "pulumi preview"
