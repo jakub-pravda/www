@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	projects = []string{"garden-center"}
+	projects = []string{"garden-center", "garden-center-ng"}
 )
 
 type WwwProject struct {
@@ -57,7 +57,7 @@ func deployProject(ctx *pulumi.Context, project WwwProject) {
 
 	contentBucket := createS3Bucket(ctx, project.ProjectName, project.ProjectDir)
 
-	if (len(domains) > 0) {
+	if len(domains) > 0 {
 		cdn := instantiateCloudfront(ctx, contentBucket, domains)
 		createAliasRecords(ctx, cdn, domains)
 		ctx.Export(fmt.Sprintf("%s-cloudfrontDomain", project.ProjectName), cdn.DomainName)
@@ -89,7 +89,7 @@ func createS3Bucket(ctx *pulumi.Context, name string, wwwDir string) *s3.Bucket 
 	})
 	handleErr(err)
 	// set public access to our bucket
-	publicAccessBlock, err := s3.NewBucketPublicAccessBlock(ctx, "public-access-block", &s3.BucketPublicAccessBlockArgs{
+	publicAccessBlock, err := s3.NewBucketPublicAccessBlock(ctx, fmt.Sprintf("%s-public-access-block", name), &s3.BucketPublicAccessBlockArgs{
 		Bucket:          bucket.ID(),
 		BlockPublicAcls: pulumi.Bool(false),
 	})

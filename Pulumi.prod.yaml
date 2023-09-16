@@ -2,3 +2,4 @@ config:
   aws:region: eu-central-1
   garden-center:dir: www-sramek-garden-center
   garden-center:domain: zahradnictvi-sramek.cz
+  garden-center-ng:dir: www-sramek-garden-center-ng

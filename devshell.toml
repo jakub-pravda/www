@@ -16,6 +16,12 @@ help = "Build golang project"
 command = "go build"
 
 [[commands]]
+name = "fmt"
+category = "Code"
+help = "Format golang project"
+command = "go fmt"
+
+[[commands]]
 name = "deploy-preview"
 category = "Infra"
 help = "Preview Pulumi changes"
