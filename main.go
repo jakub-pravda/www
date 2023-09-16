@@ -17,17 +17,19 @@ var (
 )
 
 type WwwProject struct {
-	ProjectName string
-	ProjectDir  string
-	Domain      string
+	name     string
+	dir      string
+	domain   string
+	indexDoc string
 }
 
 func getProjectConfig(ctx *pulumi.Context, projectName string) WwwProject {
 	projectConfig := config.New(ctx, projectName)
 	return WwwProject{
-		ProjectName: projectName,
-		ProjectDir:  projectConfig.Require("dir"),
-		Domain:      projectConfig.Get("domain"),
+		name:     projectName,
+		dir:      projectConfig.Require("dir"),
+		domain:   projectConfig.Get("domain"),
+		indexDoc: projectConfig.Require("index-doc"),
 	}
 }
 
@@ -50,38 +52,38 @@ func main() {
 }
 
 func deployProject(ctx *pulumi.Context, project WwwProject) {
-	log.Printf("Deploy WWW id: %s, dir: %s, domain: %s", project.ProjectName, project.ProjectDir, project.Domain)
+	log.Printf("Deploy WWW id: %s, dir: %s, domain: %s", project.name, project.dir, project.domain)
 
-	domains, err := getDomainWithSubdomains(project.Domain) // TODO empty domain
+	domains, err := getDomainWithSubdomains(project.domain) // TODO empty domain
 	handleErr(err)
 
-	contentBucket := createS3Bucket(ctx, project.ProjectName, project.ProjectDir)
+	contentBucket := createS3Bucket(ctx, project)
 
 	if len(domains) > 0 {
 		cdn := instantiateCloudfront(ctx, contentBucket, domains)
 		createAliasRecords(ctx, cdn, domains)
-		ctx.Export(fmt.Sprintf("%s-cloudfrontDomain", project.ProjectName), cdn.DomainName)
+		ctx.Export(fmt.Sprintf("%s-cloudfrontDomain", project.name), cdn.DomainName)
 	} else {
 		log.Println("No domains provided, skipping Cloudfront distribution")
 	}
 
-	ctx.Export(fmt.Sprintf("%s-bucketName", project.ProjectName), contentBucket.ID())
-	ctx.Export(fmt.Sprintf("%s-bucketEndpoint", project.ProjectName), contentBucket.WebsiteEndpoint.ApplyT(func(websiteEndpoint string) (string, error) {
+	ctx.Export(fmt.Sprintf("%s-bucketName", project.name), contentBucket.ID())
+	ctx.Export(fmt.Sprintf("%s-bucketEndpoint", project.name), contentBucket.WebsiteEndpoint.ApplyT(func(websiteEndpoint string) (string, error) {
 		return fmt.Sprintf("http://%v", websiteEndpoint), nil
 	}).(pulumi.StringOutput))
 }
 
-func createS3Bucket(ctx *pulumi.Context, name string, wwwDir string) *s3.Bucket {
+func createS3Bucket(ctx *pulumi.Context, project WwwProject) *s3.Bucket {
 	log.Println("Creating content S3 bucket")
 
-	bucketName := fmt.Sprintf("%s-bucket", name)
+	bucketName := fmt.Sprintf("%s-bucket", project.name)
 	bucket, err := s3.NewBucket(ctx, bucketName, &s3.BucketArgs{
 		Website: s3.BucketWebsiteArgs{
-			IndexDocument: pulumi.String("main.html"),
+			IndexDocument: pulumi.String(project.indexDoc),
 		},
 	})
 	handleErr(err)
-	_, err = s3.NewBucketOwnershipControls(ctx, "ownership-controls", &s3.BucketOwnershipControlsArgs{
+	_, err = s3.NewBucketOwnershipControls(ctx, fmt.Sprintf("%s-ownership-controls", project.name), &s3.BucketOwnershipControlsArgs{
 		Bucket: bucket.ID(),
 		Rule: &s3.BucketOwnershipControlsRuleArgs{
 			ObjectOwnership: pulumi.String("ObjectWriter"),
@@ -89,13 +91,13 @@ func createS3Bucket(ctx *pulumi.Context, name string, wwwDir string) *s3.Bucket 
 	})
 	handleErr(err)
 	// set public access to our bucket
-	publicAccessBlock, err := s3.NewBucketPublicAccessBlock(ctx, fmt.Sprintf("%s-public-access-block", name), &s3.BucketPublicAccessBlockArgs{
+	publicAccessBlock, err := s3.NewBucketPublicAccessBlock(ctx, fmt.Sprintf("%s-public-access-block", project.name), &s3.BucketPublicAccessBlockArgs{
 		Bucket:          bucket.ID(),
 		BlockPublicAcls: pulumi.Bool(false),
 	})
 	handleErr(err)
 	// create S3 buckets with web content
-	_, err = filesToBucketObjects(ctx, publicAccessBlock, bucket, wwwDir)
+	_, err = filesToBucketObjects(ctx, publicAccessBlock, bucket, project.dir)
 	handleErr(err)
 	return bucket
 }
@@ -120,7 +122,7 @@ func getArnCertificate(ctx *pulumi.Context, domains []string) pulumi.StringOutpu
 
 	validationRecords := createValidationRecords(ctx, domains, certificate, zoneId)
 
-	certValidation, err := acm.NewCertificateValidation(ctx, "certificate-validation", &acm.CertificateValidationArgs{
+	certValidation, err := acm.NewCertificateValidation(ctx, fmt.Sprintf("%s-certificate-validation", mainDomain), &acm.CertificateValidationArgs{
 		CertificateArn:        certificate.Arn,
 		ValidationRecordFqdns: mapValidationRecordsFqdn(validationRecords),
 	}, pulumi.Provider(eastRegion))
@@ -139,7 +141,7 @@ func instantiateCloudfront(ctx *pulumi.Context, contentBucket *s3.Bucket, domain
 	})
 	handleErr(err)
 
-	_, er := s3.NewBucketOwnershipControls(ctx, "logs-ownership-controls", &s3.BucketOwnershipControlsArgs{
+	_, er := s3.NewBucketOwnershipControls(ctx, fmt.Sprintf("%s-logs-ownership-controls", mainDomain), &s3.BucketOwnershipControlsArgs{
 		Bucket: logsBucket.ID(),
 		Rule: &s3.BucketOwnershipControlsRuleArgs{
 			ObjectOwnership: pulumi.String("BucketOwnerPreferred"),

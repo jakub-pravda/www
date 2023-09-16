@@ -26,3 +26,9 @@ name = "deploy-preview"
 category = "Infra"
 help = "Preview Pulumi changes"
 command = "pulumi preview"
+
+[[commands]]
+name = "deploy"
+category = "Infra"
+help = "Deploy Pulumi changes"
+command = "pulumi up"
