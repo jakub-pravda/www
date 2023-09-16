@@ -16,16 +16,16 @@ var (
 	projects = []string{"garden-center", "garden-center-ng"}
 )
 
-type WwwProject struct {
+type staticSiteProject struct {
 	name     string
 	dir      string
 	domain   string
 	indexDoc string
 }
 
-func getProjectConfig(ctx *pulumi.Context, projectName string) WwwProject {
+func getProjectConfig(ctx *pulumi.Context, projectName string) staticSiteProject {
 	projectConfig := config.New(ctx, projectName)
-	return WwwProject{
+	return staticSiteProject{
 		name:     projectName,
 		dir:      projectConfig.Require("dir"),
 		domain:   projectConfig.Get("domain"),
@@ -51,7 +51,7 @@ func main() {
 	})
 }
 
-func deployProject(ctx *pulumi.Context, project WwwProject) {
+func deployProject(ctx *pulumi.Context, project staticSiteProject) {
 	log.Printf("Deploy WWW id: %s, dir: %s, domain: %s", project.name, project.dir, project.domain)
 
 	domains, err := getDomainWithSubdomains(project.domain) // TODO empty domain
@@ -73,7 +73,7 @@ func deployProject(ctx *pulumi.Context, project WwwProject) {
 	}).(pulumi.StringOutput))
 }
 
-func createS3Bucket(ctx *pulumi.Context, project WwwProject) *s3.Bucket {
+func createS3Bucket(ctx *pulumi.Context, project staticSiteProject) *s3.Bucket {
 	log.Println("Creating content S3 bucket. Index document: ", project.indexDoc)
 
 	bucketName := fmt.Sprintf("%s-bucket", project.name)
