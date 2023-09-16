@@ -93,7 +93,9 @@ func getDomainAndSubdomain(domain string) (string, string) {
 func getDomainWithSubdomains(domain string) ([]string, error) {
 	// Get default subdomains for the given domain
 	// domain must be in the format 'example.com'
-	if len(strings.Split(domain, ".")) > 2 {
+	if len(domain) == 0 {
+		return []string{}, nil
+	} else if len(strings.Split(domain, ".")) > 2 {
 		log.Fatalf("Invalid domain format: %s, must be in format 'example.com'\n", domain)
 		return []string{}, errors.New("Invalid domain format")
 	} else {

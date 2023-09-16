@@ -27,7 +27,7 @@ func getProjectConfig(ctx *pulumi.Context, projectName string) WwwProject {
 	return WwwProject{
 		ProjectName: projectName,
 		ProjectDir:  projectConfig.Require("dir"),
-		Domain:      projectConfig.Require("domain"),
+		Domain:      projectConfig.Get("domain"),
 	}
 }
 
@@ -41,8 +41,6 @@ func main() {
 	log.Println("Deploying static website infrastructure")
 
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		// TODO make it more versatile
-		// TODO what to do?
 		for _, projectName := range projects {
 			projectConfig := getProjectConfig(ctx, projectName)
 			deployProject(ctx, projectConfig)
@@ -59,12 +57,15 @@ func deployProject(ctx *pulumi.Context, project WwwProject) {
 
 	contentBucket := createS3Bucket(ctx, project.ProjectName, project.ProjectDir)
 
-	cdn := instantiateCloudfront(ctx, contentBucket, domains)
-	createAliasRecords(ctx, cdn, domains)
+	if (len(domains) > 0) {
+		cdn := instantiateCloudfront(ctx, contentBucket, domains)
+		createAliasRecords(ctx, cdn, domains)
+		ctx.Export(fmt.Sprintf("%s-cloudfrontDomain", project.ProjectName), cdn.DomainName)
+	} else {
+		log.Println("No domains provided, skipping Cloudfront distribution")
+	}
 
-	// Export the pulumi outputs
 	ctx.Export(fmt.Sprintf("%s-bucketName", project.ProjectName), contentBucket.ID())
-	ctx.Export(fmt.Sprintf("%s-cloudfrontDomain", project.ProjectName), cdn.DomainName)
 	ctx.Export(fmt.Sprintf("%s-bucketEndpoint", project.ProjectName), contentBucket.WebsiteEndpoint.ApplyT(func(websiteEndpoint string) (string, error) {
 		return fmt.Sprintf("http://%v", websiteEndpoint), nil
 	}).(pulumi.StringOutput))
