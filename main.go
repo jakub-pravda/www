@@ -60,7 +60,7 @@ func deployProject(ctx *pulumi.Context, project staticSiteProject) {
 	contentBucket := createS3Bucket(ctx, project)
 
 	if len(domains) > 0 {
-		cdn := instantiateCloudfront(ctx, contentBucket, domains)
+		cdn := instantiateCloudfront(ctx, contentBucket, domains, project.indexDoc)
 		createAliasRecords(ctx, cdn, domains)
 		ctx.Export(fmt.Sprintf("%s-cloudfrontDomain", project.name), cdn.DomainName)
 	} else {
@@ -131,7 +131,7 @@ func getArnCertificate(ctx *pulumi.Context, domains []string) pulumi.StringOutpu
 	return certValidation.CertificateArn
 }
 
-func instantiateCloudfront(ctx *pulumi.Context, contentBucket *s3.Bucket, domains []string) *cloudfront.Distribution {
+func instantiateCloudfront(ctx *pulumi.Context, contentBucket *s3.Bucket, domains []string, indexDoc string) *cloudfront.Distribution {
 	mainDomain := domains[0]
 	log.Printf("Creating Cloudfront distribution for domain: %s\n", mainDomain)
 
@@ -152,7 +152,7 @@ func instantiateCloudfront(ctx *pulumi.Context, contentBucket *s3.Bucket, domain
 	distribution, err := cloudfront.NewDistribution(ctx, "cdn", &cloudfront.DistributionArgs{
 		Enabled:           pulumi.Bool(true),
 		Aliases:           stringArrayToPulumiStringArray(domains),
-		DefaultRootObject: pulumi.String("main.html"),
+		DefaultRootObject: pulumi.String(indexDoc),
 		DefaultCacheBehavior: cloudfront.DistributionDefaultCacheBehaviorArgs{
 			TargetOriginId:       contentBucket.Arn,
 			ViewerProtocolPolicy: pulumi.String("redirect-to-https"),
