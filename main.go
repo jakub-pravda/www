@@ -74,7 +74,7 @@ func deployProject(ctx *pulumi.Context, project WwwProject) {
 }
 
 func createS3Bucket(ctx *pulumi.Context, project WwwProject) *s3.Bucket {
-	log.Println("Creating content S3 bucket")
+	log.Println("Creating content S3 bucket. Index document: ", project.indexDoc)
 
 	bucketName := fmt.Sprintf("%s-bucket", project.name)
 	bucket, err := s3.NewBucket(ctx, bucketName, &s3.BucketArgs{
