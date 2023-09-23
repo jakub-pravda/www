@@ -2677,7 +2677,8 @@ input, select, textarea {
 			-ms-order: 1;
 			order: 1;
 			border-radius: 0;
-			width: 40%;
+			width: 35%;
+
 		}
 
 			.spotlight .image img {
@@ -2797,7 +2798,7 @@ input, select, textarea {
 		}
 
 		.wrapper.style1 {
-			background-color: rgba(0, 0, 0, 0.75);
+			background-color: rgb(29, 36, 42, 0.9);
 			color: #c8ece9;
 		}
 
@@ -2960,7 +2961,7 @@ input, select, textarea {
 		}
 
 		.wrapper.style3 {
-			background-color: #505393;
+			background-color: rgb(29, 36, 42);
 			color: #d3d4e4;
 		}
 
