@@ -2704,23 +2704,23 @@ input, select, textarea {
 		}
 
 		.spotlight:nth-child(1) {
-			background-color: #0A5C36;
+			background-color: rgb(10, 92, 54);
 		}
 
 		.spotlight:nth-child(2) {
-			background-color: #0F5132;
+			background-color: rgb(15, 81, 50);
 		}
 
 		.spotlight:nth-child(3) {
-			background-color: #14452F;
+			background-color: rgb(10, 92, 54);;
 		}
 
 		.spotlight:nth-child(4) {
-			background-color: #0A5C36;
+			background-color: rgb(15, 81, 50);
 		}
 
 		.spotlight:nth-child(5) {
-			background-color: #0F5132;
+			background-color: rgb(10, 92, 54);;
 		}
 
 		@media screen and (max-width: 1280px) {
@@ -2798,7 +2798,7 @@ input, select, textarea {
 		}
 
 		.wrapper.style1 {
-			background-color: rgb(29, 36, 42, 0.9);
+			background-color:  	rgb(29, 36, 42, 0.9);;
 			color: #c8ece9;
 		}
 
@@ -3993,3 +3993,9 @@ input, select, textarea {
     	width:100%;
     	position:absolute;
 	}
+
+/* Sig css */
+.sig-image {
+  max-width: 100%;
+  height: auto;
+}
