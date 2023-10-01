@@ -21,6 +21,7 @@ type staticSiteProject struct {
 	dir      string
 	domain   string
 	indexDoc string
+	cors	 string
 }
 
 func getProjectConfig(ctx *pulumi.Context, projectName string) staticSiteProject {
@@ -30,6 +31,7 @@ func getProjectConfig(ctx *pulumi.Context, projectName string) staticSiteProject
 		dir:      projectConfig.Require("dir"),
 		domain:   projectConfig.Get("domain"),
 		indexDoc: projectConfig.Require("index-doc"),
+		cors:     projectConfig.Get("cors"),
 	}
 }
 
@@ -90,15 +92,20 @@ func createS3Bucket(ctx *pulumi.Context, project staticSiteProject) *s3.Bucket {
 		},
 	})
 	handleErr(err)
+
 	// set public access to our bucket
 	publicAccessBlock, err := s3.NewBucketPublicAccessBlock(ctx, fmt.Sprintf("%s-public-access-block", project.name), &s3.BucketPublicAccessBlockArgs{
 		Bucket:          bucket.ID(),
 		BlockPublicAcls: pulumi.Bool(false),
 	})
 	handleErr(err)
+
 	// create S3 buckets with web content
 	_, err = filesToBucketObjects(ctx, publicAccessBlock, bucket, project.dir)
 	handleErr(err)
+
+	// Set the CORS configuration for the bucket
+	setBucketCors(ctx, bucket, project.cors, project.name)
 	return bucket
 }
 

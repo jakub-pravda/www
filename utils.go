@@ -183,3 +183,20 @@ func mapValidationRecordsFqdn(validationRecords []*route53.Record) pulumi.String
 	}
 	return fqdnArray
 }
+
+func setBucketCors(ctx *pulumi.Context, bucket *s3.Bucket, cors string, projectName string) {
+	if (cors != "") {
+		_, err := s3.NewBucketCorsConfigurationV2(ctx, fmt.Sprintf("%s-cors-setting", projectName), &s3.BucketCorsConfigurationV2Args{
+			Bucket: bucket.ID(),
+			CorsRules: s3.BucketCorsConfigurationV2CorsRuleArray{
+				&s3.BucketCorsConfigurationV2CorsRuleArgs{
+					AllowedHeaders: pulumi.StringArray{pulumi.String("*")},
+					AllowedMethods: pulumi.StringArray{pulumi.String("GET")},
+					AllowedOrigins: pulumi.StringArray{pulumi.String(cors)},
+					MaxAgeSeconds:  pulumi.IntPtr(3000),
+				},
+			},
+		})
+		handleErr(err)
+	}
+}

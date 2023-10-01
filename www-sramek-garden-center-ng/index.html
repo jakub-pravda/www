@@ -11,6 +11,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<script async
+    		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbe_27QgSa811d4VFf842xIdAkLIIZgYo&libraries=places">
+		</script>
 	</head>
 	<body class="landing is-preload">
 
@@ -40,8 +43,10 @@
 					<section id="banner">
 						<div class="inner">
 							<h2>Zahradnictví Šrámek</h2>
-							<p>Obohaťte svůj život květinami<br />
-							Dnes otevřeno: 09:00-12:00  13:30-17:00</p>
+							<p>Obohaťte svůj život květinami
+							<div id="openinghours">
+								<script src="assets/js/openinghours.js"></script>
+							</div></p>
 							<ul class="icons">
 								<li><a href="https://www.facebook.com/zahradnictvisramek" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
 								<li><a href="https://www.instagram.com/zahradnictvi_sramek/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>

@@ -5,3 +5,4 @@ config:
   garden-center:index-doc: main.html
   garden-center-ng:dir: www-sramek-garden-center-ng
   garden-center-ng:index-doc: index.html
+  garden-center-ng:cors: "*"
