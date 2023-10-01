@@ -21,7 +21,7 @@ type staticSiteProject struct {
 	dir      string
 	domain   string
 	indexDoc string
-	cors	 string
+	cors     string
 }
 
 func getProjectConfig(ctx *pulumi.Context, projectName string) staticSiteProject {

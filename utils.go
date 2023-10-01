@@ -185,7 +185,7 @@ func mapValidationRecordsFqdn(validationRecords []*route53.Record) pulumi.String
 }
 
 func setBucketCors(ctx *pulumi.Context, bucket *s3.Bucket, cors string, projectName string) {
-	if (cors != "") {
+	if cors != "" {
 		_, err := s3.NewBucketCorsConfigurationV2(ctx, fmt.Sprintf("%s-cors-setting", projectName), &s3.BucketCorsConfigurationV2Args{
 			Bucket: bucket.ID(),
 			CorsRules: s3.BucketCorsConfigurationV2CorsRuleArray{
