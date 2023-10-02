@@ -1,12 +1,11 @@
-const apiKey = 'AIzaSyDbe_27QgSa811d4VFf842xIdAkLIIZgYo';
 const placeId = 'ChIJefayK7LxC0cRM64ybg9kg7Q'; // The Google Place ID of the shop
 
 // Get the current day of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
-const currentDay = new Date().getDay() + 6;
+const currentDay = new Date().getDay();
 console.log(`Today is ${currentDay}.`);
 
 var request = {
-  placeId: 'ChIJN1t_tDeuEmsRUsoyG83frY4',
+  placeId: placeId,
   fields: ['name', 'opening_hours']
 };
 
@@ -23,18 +22,26 @@ function callback(place, status) {
     if (openingHours) {
       const todayOpeningHours = openingHours.periods
       .filter(period => period.open.day === currentDay)
-      .map(openingHours => `${openingHours.open.time} - ${openingHours.close.time}`)
+      .map(openingHours => `${convertTime(openingHours.open.time)} - ${convertTime(openingHours.close.time)}`)
       .join(', ');
 
       console.log(todayOpeningHours);
       resultElement = document.getElementById('openinghours')
       if (todayOpeningHours.length > 0) {
-        resultElement.textContent = `DNES OTEVŘENO: ${todayOpeningHours}`;
+        const text = document.createTextNode(`DNES OTEVŘENO: ${todayOpeningHours}`);
+        resultElement.appendChild(text);
       } else {
-        resultElement.textContent = `DNES MÁME ZAVŘENO`;
+        const text = document.createTextNode(`DNES MÁME ZAVŘENO`);
+        resultElement.appendChild(text);
       }
     } else {
       console.log('Unable to retrieve opening hours.');
     }
   }
+}
+
+function convertTime(time) {
+  const hours = time.substring(0, 2);
+  const minutes = time.substring(2);
+  return `${hours}:${minutes}`;
 }
