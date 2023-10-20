@@ -4,16 +4,17 @@ const placeId = 'ChIJefayK7LxC0cRM64ybg9kg7Q'; // The Google Place ID of the sho
 const currentDay = new Date().getDay();
 console.log(`Today is ${currentDay}.`);
 
-var request = {
-  placeId: placeId,
-  fields: ['name', 'opening_hours']
-};
+function fetchOpeningHours() {
+  var request = {
+    placeId: placeId,
+    fields: ['name', 'opening_hours']
+  };
 
-service = new google.maps.places.PlacesService(document.createElement('div'));
-service.getDetails(request, callback)
-.catch(error => console.error('Error fetching data:', error));;
+  service = new google.maps.places.PlacesService(document.createElement('div'));
+  service.getDetails(request, apiCallback).catch(error => console.error('Error fetching data:', error));;
+}
 
-function callback(place, status) {
+function apiCallback(place, status) {
   if (status == google.maps.places.PlacesServiceStatus.OK) {
     console.log(place);
 
