@@ -1,6 +1,6 @@
 # WWW
 
-This repository contains the source code for the WWW projects under my administration
+This repository contains my websites. The website is hosted on AWS S3 and CloudFront. The infrastructure is managed by Pulumi.
 
 ## Projects
 
