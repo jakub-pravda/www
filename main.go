@@ -174,6 +174,7 @@ func instantiateCloudfront(ctx *pulumi.Context, contentBucket *s3.Bucket, domain
 			MinTtl:     pulumi.Int(0),
 			MaxTtl:     pulumi.Int(60 * 10), // 10 minutes
 			DefaultTtl: pulumi.Int(60 * 10), // 10 minutes
+			Compress:   pulumi.Bool(true),
 		},
 		Origins: cloudfront.DistributionOriginArray{
 			cloudfront.DistributionOriginArgs{
