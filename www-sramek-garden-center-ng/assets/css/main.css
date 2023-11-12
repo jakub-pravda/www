@@ -3994,6 +3994,13 @@ input, select, textarea {
     	position:absolute;
 	}
 
+
+/* Signature */
+.sig-image {
+  max-width: 100%;
+  height: auto;
+}
+
 /* Modals */
 /* Style the Image Used to Trigger the Modal */
 #modalImage {
