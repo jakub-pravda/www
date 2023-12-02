@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	projects = []string{"garden-center", "garden-center-ng"}
+	projects = []string{"sramek-garden-center"}
 )
 
 type staticSiteProject struct {

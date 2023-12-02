@@ -1,8 +1,6 @@
 config:
   aws:region: eu-central-1
-  garden-center:dir: www-sramek-garden-center
-  garden-center:index-doc: main.html
-  garden-center-ng:dir: www-sramek-garden-center-ng
-  garden-center-ng:index-doc: index.html
-  garden-center-ng:cors: "*"
-  garden-center-ng:domain: zahradnictvi-sramek.cz
+  sramek-garden-center:dir: www/sramek-garden-center
+  sramek-garden-center:index-doc: index.html
+  sramek-garden-center:cors: "*"
+  sramek-garden-center:domain: zahradnictvi-sramek.cz

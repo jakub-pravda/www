@@ -7,6 +7,7 @@ import (
 	"mime"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 
 	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws/acm"
@@ -43,9 +44,10 @@ func filesToBucketObjects(ctx *pulumi.Context, accessBlock *s3.BucketPublicAcces
 }
 
 func bucketObjectConverter(ctx *pulumi.Context, accessBlock *s3.BucketPublicAccessBlock, bucket *s3.Bucket, path string) (*s3.BucketObject, error) {
+	re := regexp.MustCompile("www/[^/]+")
 	mimeType := mime.TypeByExtension(filepath.Ext(path))
 	// Remove wwwDir from the path (as we want to save files directly to the bucket root)
-	dstFilePath := removeRootDir(path)
+	dstFilePath := re.ReplaceAllString(path, "")
 	log.Printf("Converting file %s to bucket object with mime type %s\n", path, mimeType)
 	return s3.NewBucketObject(ctx, path, &s3.BucketObjectArgs{
 		Key:         pulumi.String(dstFilePath),
@@ -69,14 +71,6 @@ func getRoute53HostedZone(ctx *pulumi.Context, targetDomain string) (string, err
 	return lookupResult.Id, nil
 }
 
-func removeRootDir(path string) string {
-	index := strings.Index(path, "/")
-	if index != -1 {
-		return path[index+1:]
-	} else {
-		return path
-	}
-}
 
 func getDomainAndSubdomain(domain string) (string, string) {
 	// returns domain and subdomain
