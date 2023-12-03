@@ -6,7 +6,8 @@ $(type -p menu &>/dev/null && menu)
 '''
 packages = [
   "go",
-  "pulumi"
+  "pulumi",
+  "html-tidy"
 ]
 
 [[commands]]
@@ -16,10 +17,16 @@ help = "Build golang project"
 command = "go build"
 
 [[commands]]
-name = "fmt"
+name = "fmt-go"
 category = "Code"
 help = "Format golang project"
 command = "go fmt"
+
+[[commands]]
+name = "fmt-html"
+category = "Code"
+help = "Format html files"
+command = "sh -c 'for f in $(find . -name \"*.html\"); do tidy -m -i -c $f; done'"
 
 [[commands]]
 name = "deploy-preview"
