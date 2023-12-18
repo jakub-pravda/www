@@ -1,4 +1,4 @@
-name: "Code fmt"
+name: "Deploy main branch"
 on:
   pull_request:
   push:
@@ -12,9 +12,3 @@ jobs:
         github_access_token: ${{ secrets.GITHUB_TOKEN }}
     - run: |
         nix run '.#devShell' -- deploy
-    - uses: EndBug/add-and-commit@v9
-      with:
-        add: '.'
-        author_name: GitHub Actions
-        author_email: jacfal.tech@protonmail.com
-        message: "Github Actions: Code fmt"
