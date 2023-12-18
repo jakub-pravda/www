@@ -1,0 +1,20 @@
+name: "Code fmt"
+on:
+  pull_request:
+  push:
+jobs:
+  code_fmt:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: cachix/install-nix-action@v22
+      with:
+        github_access_token: ${{ secrets.GITHUB_TOKEN }}
+    - run: |
+        nix run '.#devShell' -- deploy
+    - uses: EndBug/add-and-commit@v9
+      with:
+        add: '.'
+        author_name: GitHub Actions
+        author_email: jacfal.tech@protonmail.com
+        message: "Github Actions: Code fmt"
