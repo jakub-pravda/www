@@ -8,35 +8,25 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: cachix/install-nix-action@v22
-    - name: code_build 
+      with:
+        github_access_token: ${{ secrets.GITHUB_TOKEN }}
+    # == Build ==
+    - name: "Code build"
       run: nix develop --command bash -c "build"
-    - name: code_fmt
+    # == Format ==
+    - name: "Code format"
       run: nix develop --command bash -c "fmt"
-
-  # code_fmt:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: actions/checkout@v3
-  #   - uses: cachix/install-nix-action@v22
-  #     with:
-  #       github_access_token: ${{ secrets.GITHUB_TOKEN }}
-  #   - run: |
-  #       nix run '.#devShell' -- fmt-go
-  #       nix run '.#devShell' -- fmt-html
-  #   - uses: EndBug/add-and-commit@v9
-  #     with:
-  #       add: '.'
-  #       author_name: GitHub Actions
-  #       author_email: jacfal.tech@protonmail.com
-  #       message: "Github Actions: Code fmt"
-  # deploy_main:
-  #   #if: github.ref == 'refs/heads/main'
-  #   needs: [code_fmt]
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: actions/checkout@v3
-  #   - uses: cachix/install-nix-action@v22
-  #     with:
-  #       github_access_token: ${{ secrets.GITHUB_TOKEN }}
-  #   - run: |
-  #       nix run '.#devShell' -- deploy
+    - uses: EndBug/add-and-commit@v9
+      with:
+        add: '.'
+        author_name: GitHub Actions
+        author_email: jacfal.tech@protonmail.com
+        message: "Github Actions: Code fmt"
+  cd:
+    #if: github.ref == 'refs/heads/main'
+    needs: [ci]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: cachix/install-nix-action@v22
+    - run: nix develop --command bash -c "deploy"
