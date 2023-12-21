@@ -11,10 +11,16 @@ packages = [
 ]
 
 [[commands]]
-name = "build"
+name = "build-go"
 category = "Code"
 help = "Build golang project"
 command = "go build"
+
+[[commands]]
+name = "build"
+category = "Code"
+help = "Build the entire project"
+command = "build-go"
 
 [[commands]]
 name = "fmt-go"
@@ -26,7 +32,13 @@ command = "go fmt"
 name = "fmt-html"
 category = "Code"
 help = "Format html files"
-command = "sh -c 'for f in $(find . -name \"*.html\"); do tidy -m -i -c $f; done'"
+command = "sh -c 'for f in $(find . -name \"*.html\"); do tidy -m -i -c $f || true; done'" # ignore errors as tidy returns 1 on warnings
+
+[[commands]]
+name = "fmt"
+category = "Code"
+help = "Format entire project"
+command = "fmt-go && fmt-html"
 
 [[commands]]
 name = "deploy-preview"
