@@ -71,7 +71,6 @@ func getRoute53HostedZone(ctx *pulumi.Context, targetDomain string) (string, err
 	return lookupResult.Id, nil
 }
 
-
 func getDomainAndSubdomain(domain string) (string, string) {
 	// returns domain and subdomain
 	// example: www.example.com -> example.com, www

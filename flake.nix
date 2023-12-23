@@ -8,6 +8,7 @@
   };
   outputs = { self, flake-utils, devshell, nixpkgs }:
     flake-utils.lib.eachDefaultSystem (system: {
+      #apps.devShell = self.outputs.devShell.${system}.default.flakeApp;
       devShell =
         let
           pkgs = import nixpkgs {
