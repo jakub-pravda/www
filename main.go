@@ -21,6 +21,7 @@ type staticSiteProject struct {
 	dir      string
 	domain   string
 	indexDoc string
+	errorDoc string
 	cors     string
 }
 
@@ -31,6 +32,7 @@ func getProjectConfig(ctx *pulumi.Context, projectName string) staticSiteProject
 		dir:      projectConfig.Require("dir"),
 		domain:   projectConfig.Get("domain"),
 		indexDoc: projectConfig.Require("index-doc"),
+		errorDoc: projectConfig.Require("error-doc"),
 		cors:     projectConfig.Get("cors"),
 	}
 }
@@ -82,6 +84,7 @@ func createS3Bucket(ctx *pulumi.Context, project staticSiteProject) *s3.Bucket {
 	bucket, err := s3.NewBucket(ctx, bucketName, &s3.BucketArgs{
 		Website: s3.BucketWebsiteArgs{
 			IndexDocument: pulumi.String(project.indexDoc),
+			ErrorDocument: pulumi.String(project.errorDoc),
 		},
 	})
 	handleErr(err)

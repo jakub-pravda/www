@@ -2,3 +2,5 @@ plaintext
 RewriteEngine On
 RewriteCond %{HTTP_HOST} ^zahradnictvi-sramek.cz [NC]
 RewriteRule ^(.*)$ https://www.zahradnictvi-sramek.cz/$1 [L,R=301]
+ErrorDocument 403 /error.html
+ErrorDocument 404 /error.html
