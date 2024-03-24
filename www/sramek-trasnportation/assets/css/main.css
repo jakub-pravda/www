@@ -1799,8 +1799,17 @@ section {
   font-weight: 600;
 }
 
+.contact-hero {
+  height: auto;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 .contact-hero .info-item+.info-item {
-  height: 1px;
+  height: auto;
   margin-top: 10px;
 }
 
@@ -1816,6 +1825,14 @@ section {
   border-radius: 4px;
   transition: all 0.3s ease-in-out;
   margin-right: 15px;
+}
+
+.contact-hero .info-item h5 {
+  padding: 0;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  white-space: nowrap;
 }
 
 /*--------------------------------------------------------------
