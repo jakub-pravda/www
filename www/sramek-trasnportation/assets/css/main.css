@@ -1799,6 +1799,25 @@ section {
   font-weight: 600;
 }
 
+.contact-hero .info-item+.info-item {
+  height: 1px;
+  margin-top: 10px;
+}
+
+.contact-hero .info-item i {
+  font-size: 20px;
+  background: var(--color-primary);
+  color: #fff;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  transition: all 0.3s ease-in-out;
+  margin-right: 15px;
+}
+
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
