@@ -5,6 +5,7 @@ motd = '''
 $(type -p menu &>/dev/null && menu)
 '''
 packages = [
+  "awscli2",
   "go",
   "pulumi",
   "pulumiPackages.pulumi-language-go",
