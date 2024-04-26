@@ -739,6 +739,18 @@ section {
   transform: scale(20);
 }
 
+.about .pricing-container {
+  font-weight: 500;
+  font-size: 20px;
+  font-family: var(--font-secondary);
+  color: #001f8d;
+  text-align: center;
+}
+
+.about .pricing-container h5 {
+  font-weight: bold;
+}
+
 @keyframes pulsate-btn {
   0% {
     transform: scale(0.6, 0.6);

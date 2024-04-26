@@ -7,6 +7,8 @@ $(type -p menu &>/dev/null && menu)
 packages = [
   "awscli2",
   "go",
+  "html-tidy",
+  "python3",
   "pulumi",
   "pulumiPackages.pulumi-language-go",
   "html-tidy"
@@ -46,7 +48,7 @@ command = "fmt-go && fmt-html"
 name = "deploy-preview"
 category = "Infra"
 help = "Preview Pulumi changes"
-command = "pulumi preview"
+command = "pulumi stack select prod && pulumi preview"
 
 [[commands]]
 name = "deploy"
