@@ -2,35 +2,35 @@
     "landfill": {
         "fraction04": {
             "name": "Frakce 0/4",
-            "price": "100Kč/TUNA"
+            "price": "100Kč/t"
         },
         "fraction032": {
             "name": "Frakce 0/32",
-            "price": "100Kč/TUNA"
+            "price": "100Kč/t"
         },
         "fraction063": {
             "name": "Frakce 0/63",
-            "price": "100Kč/TUNA"
+            "price": "100Kč/t"
         },
         "fraction48": {
             "name": "Frakce 4/8",
-            "price": "100Kč/TUNA"
+            "price": "100Kč/t"
         },
         "fraction816": {
             "name": "Frakce 8/16",
-            "price": "100Kč/TUNA"
+            "price": "100Kč/t"
         },
         "fraction1632": {
             "name": "Frakce 16/32",
-            "price": "100Kč/TUNA"
+            "price": "100Kč/t"
         },
         "fraction3263": {
             "name": "Frakce 32/63",
-            "price": "100Kč/TUNA"
+            "price": "100Kč/t"
         },
         "fraction63150": {
             "name": "Frakce 63/150",
-            "price": "100Kč/TUNA"
+            "price": "100Kč/t"
         }
     }
 }
