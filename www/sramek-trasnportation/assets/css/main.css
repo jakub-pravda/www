@@ -1871,8 +1871,27 @@ section {
   text-align: center;
 }
 
+.goods .pricing-container .description {
+  font-weight: 400;
+  font-size: 18px;
+  font-family: var(--font-secondary);
+  color: #000000;
+  text-align: center;
+}
+
 .goods .pricing-container h5 {
   font-weight: bold;
+}
+
+.goods .gallery-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.goods .gallery-column img {
+  width: 100%; /* Adjust as needed */
+  height: auto;
 }
 
 /*--------------------------------------------------------------

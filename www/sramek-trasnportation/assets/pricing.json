@@ -88,5 +88,19 @@
             "name": "Betonový recyklát 0/70 nebo 0/30",
             "price": "100Kč/t"
         }
+    },
+    "containers": {
+        "container-3m3": {
+            "name": "Kontejner 3m3",
+            "price": "100Kč/t"
+        },
+        "container-6m3": {
+            "name": "Kontejner 6m3",
+            "price": "100Kč/t"
+        },
+        "container-10m3": {
+            "name": "Kontejner 10m3",
+            "price": "100Kč/t"
+        }
     }
 }
