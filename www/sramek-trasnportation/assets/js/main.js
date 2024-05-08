@@ -175,12 +175,11 @@ class Header extends HTMLElement {
               <li><a href="pricing.html">Ceník služeb</a></li>
               <li class="dropdown"><a href="#"><span>Služby</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                 <ul>
-                  <li><a href="#">Pronájem kontejnerů</a></li>
+                  <li><a href="containerrent.html">Pronájem kontejnerů</a></li>
                   <li><a href="#">Zemní práce</a></li>
-                  <li><a href="#">Doprava materiálu</a></li>
-                  <li><a href="services-landfill.html">Deponie</a></li>
+                  <li><a href="landfill.html">Doprava materiálu a deonie</a></li>
                   <li><a href="#">Recyklace</a></li>
-                  <li><a href="#">Zahradnictví</a></li>
+                  <li><a href="gardencenter.html">Zahradnictví</a></li>
                 </ul>
               </li>
               <li><a href="contact.html">Kontakt</a></li>

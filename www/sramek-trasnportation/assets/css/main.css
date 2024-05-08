@@ -816,6 +816,33 @@ section {
   transform: scale(1.1);
 }
 
+.services .icons .social-links {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+
+.services .icons .social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 26px;
+  color: #0d42ff;
+  border-color: #0d42ff;
+  margin-right: 10px;
+  transition: 0.3s;
+}
+
+.services .icons .social-links a:hover {
+  color: #406aff;
+  border-color: #406aff;
+}
+
 /*--------------------------------------------------------------
 # Call To Action Section
 --------------------------------------------------------------*/
@@ -1890,7 +1917,18 @@ section {
 }
 
 .goods .gallery-column img {
-  width: 100%; /* Adjust as needed */
+  width: 100%;
+  height: auto;
+}
+
+.goods .gallery-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.goods .gallery-row img {
+  width: 100%;
   height: auto;
 }
 
