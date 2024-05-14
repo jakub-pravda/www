@@ -182,8 +182,8 @@ class Header extends HTMLElement {
                   <li><a href="gardencenter.html">Zahradnictví</a></li>
                 </ul>
               </li>
-              <li><a href="contact.html">Kontakt</a></li>
-              <li><a class="get-a-quote" href="get-a-quote.html">Napište nám</a></li>
+              <li><a href="#">Vozový park</a></li>
+              <li><a class="get-a-quote" href="contact.html">Kontakt</a></li>
             </ul>
           </nav><!-- .navbar -->
 
