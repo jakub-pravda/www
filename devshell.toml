@@ -9,8 +9,11 @@ packages = [
   "go",
   "pulumi",
   "pulumiPackages.pulumi-language-go",
+  "python3",
   "html-tidy"
 ]
+
+# Category - CODE
 
 [[commands]]
 name = "build-go"
@@ -42,6 +45,8 @@ category = "Code"
 help = "Format entire project"
 command = "fmt-go && fmt-html"
 
+# Category - INFRA
+
 [[commands]]
 name = "deploy-preview"
 category = "Infra"
@@ -53,3 +58,9 @@ name = "deploy"
 category = "Infra"
 help = "Deploy Pulumi changes"
 command = "pulumi stack select prod && pulumi up --yes"
+
+[[commands]]
+name = "run-local"
+category = "Infra"
+help = "Run on local http server"
+command = "cd www/sramek-garden-center && python3 -m http.server 8082"
