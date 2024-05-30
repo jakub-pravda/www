@@ -176,7 +176,7 @@ class Header extends HTMLElement {
               <li class="dropdown"><a href="#"><span>Služby</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                 <ul>
                   <li><a href="containerrent.html">Pronájem kontejnerů</a></li>
-                  <li><a href="#">Zemní práce</a></li>
+                  <li><a href="earthworks.html">Zemní práce</a></li>
                   <li><a href="landfill.html">Doprava materiálu a deonie</a></li>
                   <li><a href="#">Recyklace</a></li>
                   <li><a href="gardencenter.html">Zahradnictví</a></li>
