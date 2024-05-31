@@ -178,7 +178,7 @@ class Header extends HTMLElement {
                   <li><a href="containerrent.html">Pronájem kontejnerů</a></li>
                   <li><a href="earthworks.html">Zemní práce</a></li>
                   <li><a href="landfill.html">Doprava materiálu a deonie</a></li>
-                  <li><a href="#">Recyklace</a></li>
+                  <li><a href="recycle.html">Recyklace</a></li>
                   <li><a href="gardencenter.html">Zahradnictví</a></li>
                 </ul>
               </li>
