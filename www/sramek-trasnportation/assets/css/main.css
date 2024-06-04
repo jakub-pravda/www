@@ -1100,17 +1100,44 @@ section {
   color: #fff;
 }
 
+.pricing p {
+  text-align: center;
+}
+
+.pricing .important {
+  color: red;
+}
+
+.pricing .bold {
+  font-weight: bold;
+}
+
+.pricing .table {
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 @media (max-width: 992px) {
   .pricing .box {
     max-width: 60%;
     margin: 0 auto 30px auto;
+  }
+
+  .pricing .table {
+    width: 100%;
   }
 }
 
 @media (max-width: 767px) {
   .pricing .box {
     max-width: 80%;
-    margin: 0 auto 30px auto;
+    margin
+    : 0 auto 30px auto;
+  }
+
+  .pricing .table {
+    width: 100%;
   }
 }
 
@@ -1118,6 +1145,10 @@ section {
   .pricing .box {
     max-width: 100%;
     margin: 0 auto 30px auto;
+  }
+
+  .pricing .table {
+    width: 100%;
   }
 }
 
@@ -1383,118 +1414,6 @@ section {
 .team .member .social i {
   font-size: 18px;
   margin: 0 2px;
-}
-
-/*--------------------------------------------------------------
-# Horizontal Pricing Section
---------------------------------------------------------------*/
-.horizontal-pricing .pricing-item {
-  box-shadow: 0 3px 20px -2px rgba(108, 117, 125, 0.15);
-  padding-bottom: 30px;
-  background: #fff;
-  height: 100%;
-  position: relative;
-}
-
-.horizontal-pricing h3 {
-  font-weight: 700;
-  margin-bottom: 0;
-  font-size: 24px;
-  color: var(--color-secondary);
-}
-
-.horizontal-pricing h4 {
-  font-size: 48px;
-  color: var(--color-primary);
-  font-weight: 400;
-  font-family: var(--font-primary);
-  margin-bottom: 25px;
-  text-align: center;
-}
-
-.horizontal-pricing h4 sup {
-  font-size: 28px;
-}
-
-.horizontal-pricing h4 span {
-  color: rgba(108, 117, 125, 0.8);
-  font-size: 18px;
-}
-
-.horizontal-pricing ul {
-  padding: 20px 0;
-  list-style: none;
-  color: #6c757d;
-  text-align: left;
-  line-height: 20px;
-}
-
-.horizontal-pricing ul li {
-  padding-top: 15px;
-  display: flex;
-  align-items: center;
-}
-
-.horizontal-pricing ul i {
-  color: #059652;
-  font-size: 24px;
-  padding-right: 3px;
-}
-
-.horizontal-pricing ul .na {
-  color: rgba(108, 117, 125, 0.5);
-}
-
-.horizontal-pricing ul .na i {
-  color: rgba(108, 117, 125, 0.5);
-}
-
-.horizontal-pricing ul .na span {
-  text-decoration: line-through;
-}
-
-.horizontal-pricing .buy-btn {
-  display: inline-block;
-  padding: 12px 40px;
-  border-radius: 4px;
-  color: #fff;
-  background-color: var(--color-primary);
-  border: 2px solid var(--color-primary);
-  transition: none;
-  font-size: 16px;
-  font-weight: 500;
-  transition: 0.3s;
-  font-family: var(--font-primary);
-}
-
-.horizontal-pricing .buy-btn:hover {
-  background: #406aff;
-  border-color: #406aff;
-}
-
-.horizontal-pricing .featured {
-  background: var(--color-primary);
-}
-
-.horizontal-pricing .featured h3,
-.horizontal-pricing .featured h4,
-.horizontal-pricing .featured h4 span,
-.horizontal-pricing .featured ul,
-.horizontal-pricing .featured ul .na,
-.horizontal-pricing .featured ul i,
-.horizontal-pricing .featured ul .na i {
-  color: #fff;
-}
-
-.horizontal-pricing .featured .buy-btn {
-  background: var(--color-primary);
-  color: #fff;
-  border-color: #fff;
-}
-
-.horizontal-pricing .featured .buy-btn:hover {
-  background: #fff;
-  color: var(--color-primary);
 }
 
 /*--------------------------------------------------------------
