@@ -7,6 +7,8 @@ $(type -p menu &>/dev/null && menu)
 packages = [
   "awscli2",
   "go",
+  "html-tidy",
+  "python3",
   "pulumi",
   "pulumiPackages.pulumi-language-go",
   "python3",
@@ -51,7 +53,7 @@ command = "fmt-go && fmt-html"
 name = "deploy-preview"
 category = "Infra"
 help = "Preview Pulumi changes"
-command = "pulumi preview"
+command = "pulumi stack select prod && pulumi preview"
 
 [[commands]]
 name = "deploy"
@@ -60,7 +62,14 @@ help = "Deploy Pulumi changes"
 command = "pulumi stack select prod && pulumi up --yes"
 
 [[commands]]
-name = "run-local"
+name = "start-http-server-gardencenter"
 category = "Infra"
-help = "Run on local http server"
-command = "cd www/sramek-garden-center && python3 -m http.server 8082"
+help = "Start a simple http server and serve the Sramek garden center webpages"
+command = "python3 -m http.server 8065 -b localhost --directory ./www/sramek-garden-center/"
+
+[[commands]]
+name = "start-http-server-transportation"
+category = "Infra"
+help = "Start a simple http server and serve the Sramek transportaion webpages"
+command = "python3 -m http.server 8066 -b localhost --directory ./www/sramek-transportation/"
+
