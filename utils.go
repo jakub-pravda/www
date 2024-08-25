@@ -138,24 +138,26 @@ func createAliasRecords(ctx *pulumi.Context, distribution *cloudfront.Distributi
 }
 
 func createValidationRecords(ctx *pulumi.Context, domains []string, certificate *acm.Certificate, hostedZoneId string) []*route53.Record {
-	// Creates validation records for the given domains and certificate
+	log.Println("Creating validation records for domains ", domains)
+
 	records := make([]*route53.Record, len(domains))
 
 	for i, domain := range domains {
-		certValidationDomain, err := route53.NewRecord(ctx, fmt.Sprintf("%s-validation", domain), &route53.RecordArgs{
+		currentIndex := i
+		certValidationDomain, err := route53.NewRecord(ctx, fmt.Sprintf("validation-record-%s", domain), &route53.RecordArgs{
 			Name: certificate.DomainValidationOptions.ApplyT(func(options []acm.CertificateDomainValidationOption) string {
-				resourceRecordName := options[i].ResourceRecordName
-				log.Printf("Domain: %s, DNS resource record name: %v", domain, resourceRecordName)
+				resourceRecordName := options[currentIndex].ResourceRecordName
+				log.Printf("Domain %s, DNS resource record name: %v", domain, resourceRecordName)
 				return *resourceRecordName
 			}).(pulumi.StringOutput),
 			Type: certificate.DomainValidationOptions.ApplyT(func(options []acm.CertificateDomainValidationOption) string {
-				resourceRecordType := options[i].ResourceRecordType
+				resourceRecordType := options[currentIndex].ResourceRecordType
 				log.Printf("Domain %s, DNS resource record type: %v", domain, resourceRecordType)
 				return *resourceRecordType
 			}).(pulumi.StringOutput),
 			Records: pulumi.StringArray{
 				certificate.DomainValidationOptions.ApplyT(func(options []acm.CertificateDomainValidationOption) string {
-					recordValue := options[i].ResourceRecordValue
+					recordValue := options[currentIndex].ResourceRecordValue
 					log.Printf("Domain %s, DNS record value: %v", domain, recordValue)
 					return *recordValue
 				}).(pulumi.StringOutput)},
@@ -163,7 +165,7 @@ func createValidationRecords(ctx *pulumi.Context, domains []string, certificate 
 			Ttl:    pulumi.Int(60),
 		})
 		handleErr(err)
-		records[i] = certValidationDomain
+		records[currentIndex] = certValidationDomain
 	}
 	return records
 }

@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	projects = []string{"sramek-garden-center"}
+	projects = []string{"sramek-garden-center", "sramek-transportation"}
 )
 
 type staticSiteProject struct {
@@ -59,6 +59,7 @@ func deployProject(ctx *pulumi.Context, project staticSiteProject) {
 	log.Printf("Deploy WWW id: %s, dir: %s, domain: %s", project.name, project.dir, project.domain)
 
 	domains, err := getDomainWithSubdomains(project.domain)
+	log.Println("Used domains: ", domains)
 	handleErr(err)
 
 	contentBucket := createS3Bucket(ctx, project)
