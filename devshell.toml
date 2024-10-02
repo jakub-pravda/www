@@ -8,6 +8,7 @@ packages = [
   "awscli2",
   "go",
   "html-tidy",
+  "nodejs_22",
   "python3",
   "pulumi",
   "pulumiPackages.pulumi-language-go",
