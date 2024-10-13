@@ -203,7 +203,8 @@ class Header extends HTMLElement {
               </a>
               <p>Váš spolehlivý partner v oblasti autodopravy a zemních prací</p>
               <div class="social-links d-flex mt-4">
-                <a href="https://www.facebook.com/p/Autodoprava-%C5%A0r%C3%A1mek-100084000835529" class="facebook"><i class="bi bi-facebook"></i></a>
+                <a href="https://www.youtube.com/@jirisramek4838" class="youtube" target="_blank"><i class="bi bi-youtube"></i></a>
+                <a href="https://www.facebook.com/p/Autodoprava-%C5%A0r%C3%A1mek-100084000835529" class="facebook" target="_blank"><i class="bi bi-facebook"></i></a>
                 <a href="mailto:info@sramek-autodoprava.cz" class="email"><i class="bi bi-envelope"></i></a>
                 <a href="tel:+420603484033" class="phone"><i class="bi bi-telephone-plus"></i></a>
               </div>

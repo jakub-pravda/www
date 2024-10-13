@@ -22,9 +22,9 @@ function populateTable(pricingSection) {
           const priceCell = document.createElement('td');
   
           // Set the cell text
-          nameCell.textContent =  item.name.replace('m3', 'm³');
-          priceCell.textContent = item.price.replace('m3', 'm³');
-  
+          nameCell.textContent =  item.name;
+          priceCell.textContent = item.price;
+
           // CSS styling of table cells
           nameCell.style.fontWeight = '500';
           priceCell.style.textAlign = 'right';

@@ -90,11 +90,11 @@
         },
         "other-gardening-substrate": {
             "name": "Zahradnický substrát",
-            "price": "1500,-Kč/m3"
+            "price": "1500,-Kč/m³"
         },
         "other-bark-mulch": {
             "name": "Mulčovací kůra volně ložená",
-            "price": "1100,-Kč/m3"
+            "price": "1100,-Kč/m³"
         },
         "other-bark-mulch-packed": {
             "name": "Mulčovací kůra balená (profi) 70 litrů paletový prodej",
@@ -151,23 +151,23 @@
     },
     "containers": {
         "container-3m3-landfill": {
-            "name": "5t - 3,5m3 (suť, zemina)",
-            "price": "3500,- ,-Kč, BIO 2800,-Kč"
+            "name": "5t - 3,5m³ (suť, zemina)",
+            "price": "3500,-Kč, BIO 2800,-Kč"
         },
         "container-3m3": {
-            "name": "5t - 3,5m3 (odpad vyjma nebezpečných)",
+            "name": "5t - 3,5m³ (odpad vyjma nebezpečných)",
             "price": "5250,-Kč"
         },
         "container-6m3": {
-            "name": "5t - 6m3 (odpad vyjma nebezpečných)",
+            "name": "5t - 6m³ (odpad vyjma nebezpečných)",
             "price": "6250,-Kč, BIO 3500,-Kč"
         },
         "container-10m3": {
-            "name": "5t - 10m3 (odpad vyjma nebezpečných)",
+            "name": "5t - 10m³ (odpad vyjma nebezpečných)",
             "price": "7250,-Kč, BIO 4000,-Kč"
         },
         "container-6m3-10t": {
-            "name": "10t - 6,5m3 (suť, zemina)",
+            "name": "10t - 6,5m³ (suť, zemina)",
             "price": "6450,-Kč "
         }
     },
@@ -211,15 +211,15 @@
             "price": "750,-Kč/hod"
         },
         "loader-cat": {
-            "name": "Kolový nakladač CAT 1,3m3 (vidle)",
+            "name": "Kolový nakladač CAT 1,3m³ (vidle)",
             "price": "1200,-Kč/hod"
         },
         "dumper-neuson": {
-            "name": "Dempr Neuson 0,75m3",
+            "name": "Dempr Neuson 0,75m³",
             "price": "600,-Kč/hod"
         },
         "dumper-yannmar": {
-            "name": "Pásový dempr Yannmar 0,5m3",
+            "name": "Pásový dempr Yannmar 0,5m³",
             "price": "600,-Kč/hod"
         },
         "recycle-farwick": {
