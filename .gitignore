@@ -22,3 +22,6 @@ go.work
 
 # Go build files
 garden-store-sramek
+
+# vscode
+.vscode
