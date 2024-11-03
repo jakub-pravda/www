@@ -2064,3 +2064,41 @@ section {
 .footer .credits a {
   color: #fff;
 }
+
+.fleet-gallery {
+    width: 70%; /* Shrink the width to 50% */
+    height: auto; /* Maintain the aspect ratio */
+    margin: 0 auto; /* Center the image horizontally */
+    display: block; /* Ensure the image is displayed as a block element */
+}
+
+.carousel {
+    position: relative;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 5%; /* Adjust the width as needed */
+    height: 100%; /* Make the buttons span the height of the carousel */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5); /* Optional: Add a background for better visibility */
+}
+
+.carousel-control-prev {
+    left: 100;
+}
+
+.carousel-control-next {
+    right: 100;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    width: 100%; /* Make the icons fit the button */
+    height: 100%; /* Make the icons fit the button */
+}
