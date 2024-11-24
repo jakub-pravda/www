@@ -17,23 +17,25 @@ var (
 )
 
 type staticSiteProject struct {
-	name     string
-	dir      string
-	domain   string
-	indexDoc string
-	errorDoc string
-	cors     string
+	name       string
+	dir        string
+	bucketPath string
+	domain     string
+	indexDoc   string
+	errorDoc   string
+	cors       string
 }
 
 func getProjectConfig(ctx *pulumi.Context, projectName string) staticSiteProject {
 	projectConfig := config.New(ctx, projectName)
 	return staticSiteProject{
-		name:     projectName,
-		dir:      projectConfig.Require("dir"),
-		domain:   projectConfig.Get("domain"),
-		indexDoc: projectConfig.Require("index-doc"),
-		errorDoc: projectConfig.Require("error-doc"),
-		cors:     projectConfig.Get("cors"),
+		name:       projectName,
+		dir:        projectConfig.Require("dir"),
+		domain:     projectConfig.Get("domain"),
+		bucketPath: projectConfig.Get("bucket-path"),
+		indexDoc:   projectConfig.Require("index-doc"),
+		errorDoc:   projectConfig.Require("error-doc"),
+		cors:       projectConfig.Get("cors"), // TODO needed?
 	}
 }
 
@@ -47,10 +49,16 @@ func main() {
 	log.Println("Deploying static website infrastructure")
 
 	pulumi.Run(func(ctx *pulumi.Context) error {
+		log.Println("Deploying websites")
 		for _, projectName := range projects {
 			projectConfig := getProjectConfig(ctx, projectName)
 			deployProject(ctx, projectConfig)
 		}
+
+		log.Println("Deploying Lambda functions")
+		
+		// TODO: Read domain from config (after migration domain to AWS)
+		simpleMailService(ctx, "sramek-autodoprava.cz")
 		return nil
 	})
 }
@@ -105,7 +113,7 @@ func createS3Bucket(ctx *pulumi.Context, project staticSiteProject) *s3.Bucket {
 	handleErr(err)
 
 	// create S3 buckets with web content
-	_, err = filesToBucketObjects(ctx, publicAccessBlock, bucket, project.dir)
+	_, err = filesToBucketObjects(ctx, publicAccessBlock, bucket, project.dir, project.bucketPath)
 	handleErr(err)
 
 	// Set the CORS configuration for the bucket

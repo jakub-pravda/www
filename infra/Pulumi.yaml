@@ -1,3 +1,4 @@
 name: www-infra
-runtime: go
 description: WWW infrastructure
+runtime: go
+main: ./src/main.go
