@@ -1,7 +1,7 @@
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 const ses = new SESClient({ region: "eu-central-1" });
 const corsHeaders = {
-  "Access-Control-Allow-Origin": "https://www.sramek-autodoprava.cz",
+  "Access-Control-Allow-Origin": "https://www.sramek-autodoprava.cz, https://sramek-autodoprava.cz",
   "Access-Control-Allow-Headers": "*",
   "Access-Control-Allow-Methods": "OPTIONS,POST",
 }

@@ -45,7 +45,7 @@
   })
 
   function form_submit(thisForm, formData) {
-    fetch("https://wl689md3hk.execute-api.eu-central-1.amazonaws.com/prod", {
+    fetch("https://kqdu8ejpge.execute-api.eu-central-1.amazonaws.com/prod/", {
       method: 'POST',
       headers: {
         Accept: "application/json",
