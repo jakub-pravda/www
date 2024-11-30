@@ -1,5 +1,5 @@
 const corsHeaders = {
-  "Access-Control-Allow-Origin": "https://www.sramek-autodoprava.cz, https://sramek-autodoprava.cz",
+  "Access-Control-Allow-Origin": "https://www.sramek-autodoprava.cz",
   "Access-Control-Allow-Headers": "*",
   "Access-Control-Allow-Methods": "OPTIONS,POST",
 }
