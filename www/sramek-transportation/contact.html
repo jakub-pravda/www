@@ -128,17 +128,17 @@
             <form method="post" role="form" class="php-email-form">
               <div class="row">
                 <div class="form-group mt-3">
-                  <input type="text" class="form-control" name="name" id="name" placeholder="Jméno" required>
+                  <input type="text" class="form-control" name="name" id="name" placeholder="Jméno" maxlength="50" required>
                 </div>
                 <div class="col-md-6 form-group">
-                  <input type="text" name="phone" class="form-control" id="phone" placeholder="Tel. číslo" required>
+                  <input type="tel" name="phone" class="form-control" id="phone" placeholder="Tel. číslo">
                 </div>
                 <div class="col-md-6 form-group mt-3 mt-md-0">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Email" maxlength="100">
                 </div>
               </div>
               <div class="form-group mt-3">
-                <textarea class="form-control" name="message" id="message" rows="5" placeholder="Zpráva" required></textarea>
+                <textarea class="form-control" name="message" id="message" rows="5" placeholder="Vaše zpráva" maxlength="750" required></textarea>
               </div>
               <div class="my-3">
                 <div class="loading">Načítám</div>
