@@ -49,19 +49,18 @@ func main() {
 
 	log.Println("Deploying static website infrastructure")
 
-	
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		logsBucket := createBucket(ctx, "request-logs-sramek-infra")
-		
+
 		log.Println("Deploying global lambda functions")
 		redirectLambda := lambdaRedirect(ctx)
-		
+
 		log.Println("Deploying websites")
 		for _, projectName := range projects {
 			projectConfig := getProjectConfig(ctx, projectName)
 			deployProject(ctx, projectConfig, logsBucket, redirectLambda)
 		}
-		
+
 		// TODO: Read domain from config (after migration domain to AWS)
 		simpleMailService(ctx, "sramek-autodoprava.cz")
 		return nil
@@ -93,7 +92,7 @@ func deployProject(ctx *pulumi.Context, project staticSiteProject, logsBucket *s
 
 func getArnCertificate(ctx *pulumi.Context, domains []string) pulumi.StringOutput {
 	mainDomain := domains[0]
-	
+
 	eastRegion, err := aws.NewProvider(ctx, fmt.Sprintf("%s-east", mainDomain), &aws.ProviderArgs{
 		Region: pulumi.String("us-east-1"), // AWS Certificate Manager is available only in us east region
 	})
@@ -122,19 +121,19 @@ func getArnCertificate(ctx *pulumi.Context, domains []string) pulumi.StringOutpu
 }
 
 func instantiateCloudfront(
-		ctx *pulumi.Context,
-		contentBucket *s3.Bucket,
-	  	logsBucket *s3.Bucket,
-		domains []string, 
-		indexDoc string,
-		redirectLambda *lambda.Function) *cloudfront.Distribution {
+	ctx *pulumi.Context,
+	contentBucket *s3.Bucket,
+	logsBucket *s3.Bucket,
+	domains []string,
+	indexDoc string,
+	redirectLambda *lambda.Function) *cloudfront.Distribution {
 	mainDomain := domains[0]
 	log.Printf("Creating Cloudfront distribution for domain: %s\n", mainDomain)
 
 	viewerLambdaAssociation := cloudfront.DistributionDefaultCacheBehaviorLambdaFunctionAssociationArgs{
 		// Redirect lambda handles redirecting from non www domain to www domain
-		EventType: pulumi.String("viewer-request"),
-		LambdaArn: redirectLambda.QualifiedArn,
+		EventType:   pulumi.String("viewer-request"),
+		LambdaArn:   redirectLambda.QualifiedArn,
 		IncludeBody: pulumi.Bool(false),
 	}
 
@@ -143,7 +142,7 @@ func instantiateCloudfront(
 		Aliases:           stringArrayToPulumiStringArray(domains),
 		DefaultRootObject: pulumi.String(indexDoc),
 		DefaultCacheBehavior: cloudfront.DistributionDefaultCacheBehaviorArgs{
-			TargetOriginId:       contentBucket.Arn,
+			TargetOriginId: contentBucket.Arn,
 			LambdaFunctionAssociations: cloudfront.DistributionDefaultCacheBehaviorLambdaFunctionAssociationArray{
 				viewerLambdaAssociation,
 			},

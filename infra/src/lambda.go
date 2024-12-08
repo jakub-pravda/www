@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws"
 	"github.com/pulumi/pulumi-archive/sdk/go/archive"
+	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws"
 	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws/lambda"
 	"github.com/pulumi/pulumi-aws/sdk/v6/go/aws/iam"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -18,7 +18,7 @@ func lambdaRedirect(ctx *pulumi.Context) *lambda.Function {
 	eastRegion, err := aws.NewProvider(ctx, fmt.Sprintf("lambda-redirect-east"), &aws.ProviderArgs{
 		Region: pulumi.String("us-east-1"),
 	})
-	
+
 	assumeRole, err := iam.GetPolicyDocument(ctx, &iam.GetPolicyDocumentArgs{
 		Statements: []iam.GetPolicyDocumentStatement{
 			{
@@ -97,7 +97,7 @@ func lambdaRedirect(ctx *pulumi.Context) *lambda.Function {
 		Handler:        pulumi.String("lambda_redirect.handler"),
 		SourceCodeHash: pulumi.String(lambda_lookup_file.OutputBase64sha256),
 		Runtime:        pulumi.String(lambda.RuntimeNodeJS18dX),
-		Publish: 	  	pulumi.Bool(true),
+		Publish:        pulumi.Bool(true),
 	}, pulumi.DependsOn([]pulumi.Resource{lambdaLogging}), pulumi.Provider(eastRegion))
 
 	if err != nil {
@@ -130,7 +130,7 @@ func lambdaLogs(ctx *pulumi.Context, iamRole *iam.Role, name string) *iam.RolePo
 	handleErr(err)
 
 	loggingPolicyName := fmt.Sprintf("%s-logging", name)
-	
+
 	lambdaLoggingPolicy, err := iam.NewPolicy(ctx, loggingPolicyName, &iam.PolicyArgs{
 		Name:        pulumi.String(loggingPolicyName),
 		Path:        pulumi.String("/"),

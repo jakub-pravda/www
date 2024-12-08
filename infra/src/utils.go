@@ -23,7 +23,7 @@ func handleErr(err error) {
 	}
 }
 
-func filesToBucketObjects(ctx *pulumi.Context, accessBlock *s3.BucketPublicAccessBlock, bucket *s3.Bucket, localPath string, bucketPath string) ([]*s3.BucketObject, error) {	
+func filesToBucketObjects(ctx *pulumi.Context, accessBlock *s3.BucketPublicAccessBlock, bucket *s3.Bucket, localPath string, bucketPath string) ([]*s3.BucketObject, error) {
 	log.Printf("Processing directory content to the buckets %s\n", localPath)
 	files, err := os.ReadDir(localPath)
 	handleErr(err)
@@ -193,7 +193,7 @@ func createBucket(ctx *pulumi.Context, bucketName string) *s3.Bucket {
 			ObjectOwnership: pulumi.String("BucketOwnerPreferred"),
 		},
 	})
-	handleErr(er)	// Creates a new S3 bucket
+	handleErr(er) // Creates a new S3 bucket
 	return bucket
 }
 

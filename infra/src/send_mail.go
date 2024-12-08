@@ -43,10 +43,9 @@ func simpleMailService(ctx *pulumi.Context, emailDomain string) {
 	lambdaEmailForm := lambdaEmailForm(ctx)
 	lambdaCors := lambdaEmailFormCors(ctx)
 
-
 	log.Println("emailForm - API Gateway settings")
 	restApi := emailFormApiGateway(ctx, lambdaEmailForm, lambdaCors)
-	
+
 	log.Println("emailForm - Setting AWS SES complete")
 	ctx.Export("email_form_url", &restApi.Url)
 }
@@ -225,7 +224,7 @@ func lambdaEmailFormLogs(ctx *pulumi.Context, iamRole *iam.Role, name string) *i
 	handleErr(err)
 
 	loggingPolicyName := name + "_logging"
-	
+
 	lambdaLoggingPolicy, err := iam.NewPolicy(ctx, loggingPolicyName, &iam.PolicyArgs{
 		Name:        pulumi.String(loggingPolicyName),
 		Path:        pulumi.String("/"),
