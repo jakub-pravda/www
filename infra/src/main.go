@@ -7,6 +7,7 @@ import (
 	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws"
 	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws/acm"
 	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws/cloudfront"
+	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws/lambda"
 	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws/s3"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
@@ -49,31 +50,34 @@ func main() {
 	log.Println("Deploying static website infrastructure")
 
 	pulumi.Run(func(ctx *pulumi.Context) error {
+		logsBucket := createBucket(ctx, "request-logs-sramek-infra")
+
+		log.Println("Deploying global lambda functions")
+		redirectLambda := lambdaRedirect(ctx)
+
 		log.Println("Deploying websites")
 		for _, projectName := range projects {
 			projectConfig := getProjectConfig(ctx, projectName)
-			deployProject(ctx, projectConfig)
+			deployProject(ctx, projectConfig, logsBucket, redirectLambda)
 		}
 
-		log.Println("Deploying Lambda functions")
-		
 		// TODO: Read domain from config (after migration domain to AWS)
 		simpleMailService(ctx, "sramek-autodoprava.cz")
 		return nil
 	})
 }
 
-func deployProject(ctx *pulumi.Context, project staticSiteProject) {
+func deployProject(ctx *pulumi.Context, project staticSiteProject, logsBucket *s3.Bucket, redirectLambda *lambda.Function) {
 	log.Printf("Deploy WWW id: %s, dir: %s, domain: %s", project.name, project.dir, project.domain)
 
 	domains, err := getDomainWithSubdomains(project.domain)
 	log.Println("Used domains: ", domains)
 	handleErr(err)
 
-	contentBucket := createS3Bucket(ctx, project)
+	contentBucket := createContentBucket(ctx, project, false)
 
 	if len(domains) > 0 {
-		cdn := instantiateCloudfront(ctx, contentBucket, domains, project.indexDoc)
+		cdn := instantiateCloudfront(ctx, contentBucket, logsBucket, domains, project.indexDoc, redirectLambda)
 		createAliasRecords(ctx, cdn, domains)
 		ctx.Export(fmt.Sprintf("%s-cloudfrontDomain", project.name), cdn.DomainName)
 	} else {
@@ -86,49 +90,15 @@ func deployProject(ctx *pulumi.Context, project staticSiteProject) {
 	}).(pulumi.StringOutput))
 }
 
-func createS3Bucket(ctx *pulumi.Context, project staticSiteProject) *s3.Bucket {
-	log.Println("Creating content S3 bucket. Index document: ", project.indexDoc)
-
-	bucketName := fmt.Sprintf("%s-bucket", project.name)
-	bucket, err := s3.NewBucket(ctx, bucketName, &s3.BucketArgs{
-		Website: s3.BucketWebsiteArgs{
-			IndexDocument: pulumi.String(project.indexDoc),
-			ErrorDocument: pulumi.String(project.errorDoc),
-		},
-	})
-	handleErr(err)
-	_, err = s3.NewBucketOwnershipControls(ctx, fmt.Sprintf("%s-ownership-controls", project.name), &s3.BucketOwnershipControlsArgs{
-		Bucket: bucket.ID(),
-		Rule: &s3.BucketOwnershipControlsRuleArgs{
-			ObjectOwnership: pulumi.String("ObjectWriter"),
-		},
-	})
-	handleErr(err)
-
-	// set public access to our bucket
-	publicAccessBlock, err := s3.NewBucketPublicAccessBlock(ctx, fmt.Sprintf("%s-public-access-block", project.name), &s3.BucketPublicAccessBlockArgs{
-		Bucket:          bucket.ID(),
-		BlockPublicAcls: pulumi.Bool(false),
-	})
-	handleErr(err)
-
-	// create S3 buckets with web content
-	_, err = filesToBucketObjects(ctx, publicAccessBlock, bucket, project.dir, project.bucketPath)
-	handleErr(err)
-
-	// Set the CORS configuration for the bucket
-	setBucketCors(ctx, bucket, project.cors, project.name)
-	return bucket
-}
-
 func getArnCertificate(ctx *pulumi.Context, domains []string) pulumi.StringOutput {
 	mainDomain := domains[0]
-	eastRegion, err := aws.NewProvider(ctx, "east", &aws.ProviderArgs{
+
+	eastRegion, err := aws.NewProvider(ctx, fmt.Sprintf("%s-east", mainDomain), &aws.ProviderArgs{
 		Region: pulumi.String("us-east-1"), // AWS Certificate Manager is available only in us east region
 	})
 
 	// generate certificate for our domain
-	certificate, err := acm.NewCertificate(ctx, "certificate", &acm.CertificateArgs{
+	certificate, err := acm.NewCertificate(ctx, fmt.Sprintf("%s-certificate", mainDomain), &acm.CertificateArgs{
 		DomainName:              pulumi.String(mainDomain),
 		ValidationMethod:        pulumi.String("DNS"),
 		SubjectAlternativeNames: stringArrayToPulumiStringArray(domains),
@@ -150,30 +120,32 @@ func getArnCertificate(ctx *pulumi.Context, domains []string) pulumi.StringOutpu
 	return certValidation.CertificateArn
 }
 
-func instantiateCloudfront(ctx *pulumi.Context, contentBucket *s3.Bucket, domains []string, indexDoc string) *cloudfront.Distribution {
+func instantiateCloudfront(
+	ctx *pulumi.Context,
+	contentBucket *s3.Bucket,
+	logsBucket *s3.Bucket,
+	domains []string,
+	indexDoc string,
+	redirectLambda *lambda.Function) *cloudfront.Distribution {
 	mainDomain := domains[0]
 	log.Printf("Creating Cloudfront distribution for domain: %s\n", mainDomain)
 
-	logsBucket, err := s3.NewBucket(ctx, "requests-logs", &s3.BucketArgs{
-		Acl:    pulumi.String("private"),
-		Bucket: pulumi.String(fmt.Sprintf("%s-logs", mainDomain)),
-	})
-	handleErr(err)
+	viewerLambdaAssociation := cloudfront.DistributionDefaultCacheBehaviorLambdaFunctionAssociationArgs{
+		// Redirect lambda handles redirecting from non www domain to www domain
+		EventType:   pulumi.String("viewer-request"),
+		LambdaArn:   redirectLambda.QualifiedArn,
+		IncludeBody: pulumi.Bool(false),
+	}
 
-	_, er := s3.NewBucketOwnershipControls(ctx, fmt.Sprintf("%s-logs-ownership-controls", mainDomain), &s3.BucketOwnershipControlsArgs{
-		Bucket: logsBucket.ID(),
-		Rule: &s3.BucketOwnershipControlsRuleArgs{
-			ObjectOwnership: pulumi.String("BucketOwnerPreferred"),
-		},
-	})
-	handleErr(er)
-
-	distribution, err := cloudfront.NewDistribution(ctx, "cdn", &cloudfront.DistributionArgs{
+	distribution, err := cloudfront.NewDistribution(ctx, fmt.Sprintf("%s-cdn", mainDomain), &cloudfront.DistributionArgs{
 		Enabled:           pulumi.Bool(true),
 		Aliases:           stringArrayToPulumiStringArray(domains),
 		DefaultRootObject: pulumi.String(indexDoc),
 		DefaultCacheBehavior: cloudfront.DistributionDefaultCacheBehaviorArgs{
-			TargetOriginId:       contentBucket.Arn,
+			TargetOriginId: contentBucket.Arn,
+			LambdaFunctionAssociations: cloudfront.DistributionDefaultCacheBehaviorLambdaFunctionAssociationArray{
+				viewerLambdaAssociation,
+			},
 			ViewerProtocolPolicy: pulumi.String("redirect-to-https"),
 			AllowedMethods:       pulumi.StringArray{pulumi.String("GET"), pulumi.String("HEAD")},
 			CachedMethods:        pulumi.StringArray{pulumi.String("GET"), pulumi.String("HEAD")},

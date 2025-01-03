@@ -23,7 +23,7 @@ func handleErr(err error) {
 	}
 }
 
-func filesToBucketObjects(ctx *pulumi.Context, accessBlock *s3.BucketPublicAccessBlock, bucket *s3.Bucket, localPath string, bucketPath string) ([]*s3.BucketObject, error) {	
+func filesToBucketObjects(ctx *pulumi.Context, accessBlock *s3.BucketPublicAccessBlock, bucket *s3.Bucket, localPath string, bucketPath string) ([]*s3.BucketObject, error) {
 	log.Printf("Processing directory content to the buckets %s\n", localPath)
 	files, err := os.ReadDir(localPath)
 	handleErr(err)
@@ -178,6 +178,58 @@ func mapValidationRecordsFqdn(validationRecords []*route53.Record) pulumi.String
 		fqdnArray[i] = record.Fqdn
 	}
 	return fqdnArray
+}
+
+func createBucket(ctx *pulumi.Context, bucketName string) *s3.Bucket {
+	bucket, err := s3.NewBucket(ctx, fmt.Sprintf("%s-s3-bucket", bucketName), &s3.BucketArgs{
+		Acl:    pulumi.String("private"),
+		Bucket: pulumi.String(bucketName),
+	})
+	handleErr(err)
+
+	_, er := s3.NewBucketOwnershipControls(ctx, fmt.Sprintf("%s-ownership-controls", bucketName), &s3.BucketOwnershipControlsArgs{
+		Bucket: bucket.ID(),
+		Rule: &s3.BucketOwnershipControlsRuleArgs{
+			ObjectOwnership: pulumi.String("BucketOwnerPreferred"),
+		},
+	})
+	handleErr(er) // Creates a new S3 bucket
+	return bucket
+}
+
+func createContentBucket(ctx *pulumi.Context, project staticSiteProject, blockPublicAccess bool) *s3.Bucket {
+	log.Println("Creating content S3 bucket. Index document: ", project.indexDoc)
+
+	bucketName := fmt.Sprintf("%s-bucket", project.name)
+	bucket, err := s3.NewBucket(ctx, bucketName, &s3.BucketArgs{
+		Website: s3.BucketWebsiteArgs{
+			IndexDocument: pulumi.String(project.indexDoc),
+			ErrorDocument: pulumi.String(project.errorDoc),
+		},
+	})
+	handleErr(err)
+	_, err = s3.NewBucketOwnershipControls(ctx, fmt.Sprintf("%s-ownership-controls", project.name), &s3.BucketOwnershipControlsArgs{
+		Bucket: bucket.ID(),
+		Rule: &s3.BucketOwnershipControlsRuleArgs{
+			ObjectOwnership: pulumi.String("ObjectWriter"),
+		},
+	})
+	handleErr(err)
+
+	// set public access to our bucket
+	publicAccessBlock, err := s3.NewBucketPublicAccessBlock(ctx, fmt.Sprintf("%s-public-access-block", project.name), &s3.BucketPublicAccessBlockArgs{
+		Bucket:          bucket.ID(),
+		BlockPublicAcls: pulumi.Bool(blockPublicAccess),
+	})
+	handleErr(err)
+
+	// create S3 buckets with web content
+	_, err = filesToBucketObjects(ctx, publicAccessBlock, bucket, project.dir, project.bucketPath)
+	handleErr(err)
+
+	// Set the CORS configuration for the bucket
+	setBucketCors(ctx, bucket, project.cors, project.name)
+	return bucket
 }
 
 func setBucketCors(ctx *pulumi.Context, bucket *s3.Bucket, cors string, projectName string) {

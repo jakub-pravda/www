@@ -10,6 +10,7 @@ config:
   # Transportation (dir path is from source directory)
   sramek-transportation:dir: ../../www/sramek-transportation
   sramek-transportation:bucket-path: www/sramek-transportation
+  sramek-transportation:domain: sramek-autodoprava.cz
   sramek-transportation:error-doc: error.html
   sramek-transportation:index-doc: index.html
   sramek-transportation:cors: "*"

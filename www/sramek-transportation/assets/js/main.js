@@ -191,7 +191,9 @@ class Header extends HTMLElement {
       </header>
     `;
   }
-}class Footer extends HTMLElement {
+}
+
+class Footer extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `    
       <footer id="footer" class="footer">
@@ -246,5 +248,15 @@ class Header extends HTMLElement {
   }
 }
 
+class SiteDescription extends HTMLElement {
+  connectedCallback() {
+    this.innerHTML = `
+    <meta name="keywords" content="zemní práce, kontejnery, autodoprava, šrámek, stará boleslav, brandýs nad labem, bagrování, základy staveb, recyklace, deponie">
+    <meta name="description" content="Profesionální zemní práce, pronájem odpadních kontejnerů, deponie a rozvoz materiálu, údržba zahrad v Brandýs nad Labem-Stará Boleslav. Rychlé a spolehlivé služby.">
+    `;
+  }
+}
+
 customElements.define('main-header', Header);
 customElements.define('main-footer', Footer);
+customElements.define('main-description', SiteDescription);

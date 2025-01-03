@@ -1,0 +1,3 @@
+Sitemap: https://www.sramek-autodoprava.cz/sitemap.xml
+User-agent: *
+Disallow:
