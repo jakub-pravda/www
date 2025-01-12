@@ -1,43 +1,43 @@
 {
     "landfill": {
         "stone-fraction-0-4": {
-            "name": "Kámen 0/4",
+            "name": "Lomový kámen 0/4",
             "price": "400,-Kč/t"
         },
         "stone-fraction-0-8": {
-            "name": "Kámen 0/8",
+            "name": "Lomový kámen 0/8",
             "price": "400,-Kč/t"
         },
         "stone-fraction-0-32": {
-            "name": "Kámen 0/32",
+            "name": "Lomový kámen 0/32",
             "price": "500,-Kč/t"
         },
         "stone-fraction-0-63": {
-            "name": "Kámen 0/63",
+            "name": "Lomový kámen 0/63",
             "price": "500,-Kč/t"
         },
         "stone-fraction-4-8": {
-            "name": "Kámen 4/8",
+            "name": "Lomový kámen 4/8",
             "price": "750,-Kč/t"
         },
         "stone-fraction-8-16": {
-            "name": "FrKámenakce 8/16",
+            "name": "Lomový kámen 8/16",
             "price": "600,-Kč/t"
         },
         "stone-fraction-16-32": {
-            "name": "Kámen 16/32",
+            "name": "Lomový kámen 16/32",
             "price": "600,-Kč/t"
         },
         "stone-fraction-32-63": {
-            "name": "Kámen 32/63",
+            "name": "Lomový kámen 32/63",
             "price": "600,-Kč/t"
         },
         "stone-fraction-63-150": {
-            "name": "Kámen do gabionů 63-150",
+            "name": "Lomový kámen do gabionů 63-150",
             "price": "850,-Kč/t"
         },
         "stone-fraction-500-1500": {
-            "name": "Kámen 500-1500",
+            "name": "Lomový kámen 500-1500",
             "price": "850,-Kč/t"
         },
         "pebble-fraction-8-16": {
@@ -152,23 +152,23 @@
     "containers": {
         "container-3m3-landfill": {
             "name": "5t - 3,5m³ (suť, zemina)",
-            "price": "3500,-Kč, BIO 2800,-Kč"
+            "price": "3700,-Kč, BIO 2800,-Kč"
         },
         "container-3m3": {
             "name": "5t - 3,5m³ (odpad vyjma nebezpečných)",
-            "price": "5250,-Kč"
+            "price": "5700,-Kč"
         },
         "container-6m3": {
             "name": "5t - 6m³ (odpad vyjma nebezpečných)",
-            "price": "6250,-Kč, BIO 3500,-Kč"
+            "price": "6700,-Kč, BIO 3500,-Kč"
         },
         "container-10m3": {
             "name": "5t - 10m³ (odpad vyjma nebezpečných)",
-            "price": "7250,-Kč, BIO 4000,-Kč"
+            "price": "7700,-Kč, BIO 4000,-Kč"
         },
         "container-6m3-10t": {
             "name": "10t - 6,5m³ (suť, zemina)",
-            "price": "6450,-Kč "
+            "price": "6650,-Kč "
         }
     },
     "containers-transport": {

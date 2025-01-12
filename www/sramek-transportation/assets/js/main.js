@@ -1,10 +1,3 @@
-/**
-* Template Name: Logis
-* Updated: Mar 10 2024 with Bootstrap v5.3.3
-* Template URL: https://bootstrapmade.com/logis-bootstrap-logistics-website-template/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
 document.addEventListener('DOMContentLoaded', () => {
   "use strict";
 
@@ -101,11 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /**
-   * Initiate pURE cOUNTER
-   */
-  new PureCounter();
-
-  /**
    * Initiate glightbox
    */
   const glightbox = GLightbox({
@@ -133,22 +121,6 @@ document.addEventListener('DOMContentLoaded', () => {
       prevEl: '.swiper-button-prev',
     }
   });
-
-  /**
-   * Animation on scroll function and init
-   */
-  function aos_init() {
-    AOS.init({
-      duration: 1000,
-      easing: 'ease-in-out',
-      once: true,
-      mirror: false
-    });
-  }
-  window.addEventListener('load', () => {
-    aos_init();
-  });
-
 });
 
 /**
@@ -177,7 +149,7 @@ class Header extends HTMLElement {
                 <ul>
                   <li><a href="containerrent.html">Pronájem kontejnerů</a></li>
                   <li><a href="earthworks.html">Zemní práce</a></li>
-                  <li><a href="landfill.html">Doprava materiálu a deonie</a></li>
+                  <li><a href="landfill.html">Doprava materiálu a deponie</a></li>
                   <li><a href="recycle.html">Recyklace</a></li>
                   <li><a href="gardencenter.html">Zahradnictví</a></li>
                 </ul>
@@ -236,7 +208,7 @@ class Footer extends HTMLElement {
 
         <div class="container mt-4">
           <div class="copyright">
-            &copy; 2024 <strong><span>Šrámek autodoprava</span></strong>
+            &copy; 2025 <strong><span>Šrámek autodoprava</span></strong>
           </div>
           <div class="credits">
             Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
