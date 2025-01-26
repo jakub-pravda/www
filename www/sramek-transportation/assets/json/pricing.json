@@ -2,55 +2,55 @@
     "landfill": {
         "stone-fraction-0-4": {
             "name": "Lomový kámen 0/4",
-            "price": "400,-Kč/t"
+            "price": "450,-Kč/t"
         },
         "stone-fraction-0-8": {
             "name": "Lomový kámen 0/8",
-            "price": "400,-Kč/t"
+            "price": "450,-Kč/t"
         },
         "stone-fraction-0-32": {
             "name": "Lomový kámen 0/32",
-            "price": "500,-Kč/t"
+            "price": "550,-Kč/t"
         },
         "stone-fraction-0-63": {
             "name": "Lomový kámen 0/63",
-            "price": "500,-Kč/t"
+            "price": "550,-Kč/t"
         },
         "stone-fraction-4-8": {
             "name": "Lomový kámen 4/8",
-            "price": "750,-Kč/t"
+            "price": "780,-Kč/t"
         },
         "stone-fraction-8-16": {
             "name": "Lomový kámen 8/16",
-            "price": "600,-Kč/t"
+            "price": "650,-Kč/t"
         },
         "stone-fraction-16-32": {
             "name": "Lomový kámen 16/32",
-            "price": "600,-Kč/t"
+            "price": "650,-Kč/t"
         },
         "stone-fraction-32-63": {
             "name": "Lomový kámen 32/63",
-            "price": "600,-Kč/t"
+            "price": "650,-Kč/t"
         },
         "stone-fraction-63-150": {
             "name": "Lomový kámen do gabionů 63-150",
-            "price": "850,-Kč/t"
+            "price": "900,-Kč/t"
         },
         "stone-fraction-500-1500": {
             "name": "Lomový kámen 500-1500",
-            "price": "850,-Kč/t"
+            "price": "900,-Kč/t"
         },
         "pebble-fraction-8-16": {
             "name": "Kačírek praný 8/16",
-            "price": "350,-Kč/t"
+            "price": "380,-Kč/t"
         },     
         "pebble-fraction-10-32": {
             "name": "Kačírek praný 10/32 ",
-            "price": "350,-Kč/t"
+            "price": "380,-Kč/t"
         },   
         "pebble-fraction-16-32": {
             "name": "Kačírek praný 16/32",
-            "price": "350,-Kč/t"
+            "price": "380,-Kč/t"
         },
         "pebble-fraction-32-63": {
             "name": "Kačírek praný 32/63",
@@ -66,19 +66,19 @@
         },
         "pebble-fraction-20-70": {
             "name": "Kačírek okrasný 20/70 šedobílý",
-            "price": "1250,-Kč/t"
+            "price": "1000,-Kč/t"
         },
         "pebble-fraction-30-120": {
             "name": "Kačírek okrasný 30/120 šedobílý",
-            "price": "1250,-Kč/t"
+            "price": "1000,-Kč/t"
         },
         "sand-fraction-0-4": {
             "name": "Betonářský tříděný 0/4",
-            "price": "350,-Kč/t"
+            "price": "380,-Kč/t"
         },
         "sand-fraction-0-2": {
             "name": "Maltový tříděný 0/2",
-            "price": "380,-Kč/t"
+            "price": "450,-Kč/t"
         },
         "sand-fraction-1-2": {
             "name": "Křemičitý bílý na zásyp 1/2",
@@ -126,11 +126,11 @@
         },
         "waste-debris": {
             "name": "Stavební suť cihelná čistá 170102",
-            "price": "580,-Kč/t"
+            "price": "650,-Kč/t"
         },
         "waste-earth": {
             "name": "Výkopová zemina 170504",
-            "price": "400,-Kč/t"
+            "price": "450,-Kč/t"
         },
         "waste-plasterboard": {
             "name": "Sádrokarton ",
@@ -142,7 +142,7 @@
         },
         "waste-mixture": {
             "name": "Směs stavebních materiálů 170904",
-            "price": "3000,-Kč/t"
+            "price": "4500,-Kč/t"
         },
         "waste-concrete-info": {
             "name": "Dodáváme a dopravujeme zavlhlé betonové směsi",
@@ -152,7 +152,7 @@
     "containers": {
         "container-3m3-landfill": {
             "name": "5t - 3,5m³ (suť, zemina)",
-            "price": "3700,-Kč, BIO 2800,-Kč"
+            "price": "3700,-Kč, zemina 3500,-Kč, BIO 2800,-Kč"
         },
         "container-3m3": {
             "name": "5t - 3,5m³ (odpad vyjma nebezpečných)",
@@ -168,39 +168,35 @@
         },
         "container-6m3-10t": {
             "name": "10t - 6,5m³ (suť, zemina)",
-            "price": "6650,-Kč "
+            "price": "6650,-Kč, zemina 6000,-Kč"
         }
     },
     "containers-transport": {
         "dump-truck": {
             "name": "Sklápěč nosnost 2,5t",
-            "price": "25,-Kč/km, 550,-Kč/hod"
+            "price": "30,-Kč/km, 550,-Kč/hod"
         },
         "containers-6t": {
             "name": "Nosič kontejnerů - nosnost 6t",
-            "price": "35,-Kč/km, 650,-Kč/hod"
+            "price": "40,-Kč/km, 650,-Kč/hod"
         },
         "containers-10t": {
             "name": "Nosič kontejnerů - nosnost 10t",
-            "price": "45,-Kč/km, 750,-Kč/hod"
+            "price": "50,-Kč/km, 750,-Kč/hod"
         }
     },
     "machines": {
-        "excavator-sunward": {
-            "name": "Mini bagr Sunward  1t",
-            "price": "700,-Kč/hod"
-        },
         "excavator-yannmar": {
             "name": "Mini bagr Yannmar 1,5t",
-            "price": "700,-Kč/hod (hydr. kladivo + 200,-Kč/hod)"
+            "price": "750,-Kč/hod (hydr. kladivo + 200,-Kč/hod)"
         },
         "excavator-cat": {
             "name": "Mini bagr CAT 3,5t",
-            "price": "850,-Kč/hod (hydr. kladivo + 200,-Kč/hod)"
+            "price": "900,-Kč/hod (hydr. kladivo + 200,-Kč/hod)"
         },
         "excavator-wacker": {
             "name": "Mini bagr Wacker 6 t",
-            "price": "950,-Kč/hod (hydr. kladivo + 200,-Kč/hod)"
+            "price": "1000,-Kč/hod (hydr. kladivo + 200,-Kč/hod)"
         },
         "excavator-atlas": {
             "name": "Kolový bagr Atlas 10 t",
@@ -208,11 +204,11 @@
         },
         "loader-wecker": {
             "name": "Kolový nakladač Wacker Neuson WL28",
-            "price": "750,-Kč/hod"
+            "price": "800,-Kč/hod"
         },
         "loader-cat": {
             "name": "Kolový nakladač CAT 1,3m³ (vidle)",
-            "price": "1200,-Kč/hod"
+            "price": "1250,-Kč/hod"
         },
         "dumper-neuson": {
             "name": "Dempr Neuson 0,75m³",
@@ -244,7 +240,11 @@
         },
         "tools-carrier": {
             "name": "Nosič nářadí Ferari 340 (zakladač trávníku, rotační brány, pařezová fréza, rotavátor, mulčovač)",
-            "price": "850,-Kč"
+            "price": "950,-Kč"
+        },
+        "steppe-farmer-blieet": {
+            "name": "Štěpkovač Blieet",
+            "price": "1200,-Kč"
         }
     },
     "garden-maintenance": {
