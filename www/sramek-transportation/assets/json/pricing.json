@@ -246,5 +246,59 @@
             "name": "Nosič nářadí Ferari 340 (zakladač trávníku, rotační brány, pařezová fréza, rotavátor, mulčovač)",
             "price": "850,-Kč"
         }
+    },
+    "garden-maintenance": {
+        "manual-work": {
+            "name": "Manuální práce",
+            "price": "380,-Kč/hod"
+        },
+        "grass-cut": {
+            "name": "Údržba trávníku, seč v rovině",
+            "price": "3,-Kč/m²"
+        },
+        "grass-verticuttor": {
+            "name": "Údržba trávníku, vertikutace v rovině",
+            "price": "5,-Kč/m²"
+        },
+        "grass-aerator": {
+            "name": "Údržba trávníku, aerifikace v rovině",
+            "price": "10,-Kč/m²"
+        },
+        "grass-sand": {
+            "name": "Údržba trávníku, pískování",
+            "price": "10,-Kč/m²"
+        },
+        "grass-fertilizer": {
+            "name": "Údržba trávníku, pohnojení dlouhodobým hnojivem (cena je odvislá podle druhu hnojiva)",
+            "price": "3,-Kč/m²"
+        },
+        "perennial-cut-low": {
+            "name": "Řez dřevin a trvalek, strojní práce pozemní (do 2m)",
+            "price": "430,-Kč/hod"
+        },
+        "perennial-cut-high": {
+            "name": "Řez dřevin a trvalek, strojní práce ve výšce od 2m do 4m",
+            "price": "480,-Kč/hod"
+        },
+        "trees-cut-low": {
+            "name": "Péče o stromy, prořez ze země do 3m",
+            "price": "550,-Kč/hod"
+        },
+        "trees-cut-high": {
+            "name": "Péče o stromy, prořez ze žebříku od 3m do 5m",
+            "price": "650,-Kč/hod"
+        },
+        "spray-manual": {
+            "name": "Postřik přípravku na ochranu rostlin ruční",
+            "price": "400,-Kč/hod"
+        },
+        "spray-automat": {
+            "name": "Postřik přípravku na ochranu rostlin s motorovým postřikovačem",
+            "price": "500,-Kč/hod"
+        },
+        "total-herbicide": {
+            "name": "Aplikace totálního herbicidu včetně přípravku (cena je odvislá podle druhu herbicidu)",
+            "price": "5,-Kč/m²"
+        }
     }
 }

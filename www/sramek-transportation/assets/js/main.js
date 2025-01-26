@@ -151,6 +151,7 @@ class Header extends HTMLElement {
                   <li><a href="earthworks.html">Zemní práce</a></li>
                   <li><a href="landfill.html">Doprava materiálu a deponie</a></li>
                   <li><a href="recycle.html">Recyklace</a></li>
+                  <li><a href="gardenmaintenance.html">Údržby zahrad</a></li>
                   <li><a href="gardencenter.html">Zahradnictví</a></li>
                 </ul>
               </li>
