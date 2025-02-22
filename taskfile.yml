@@ -7,7 +7,7 @@ tasks:
 
   www-garden-up:
     cmds:
-      - python3 -m http.server 8067 -b localhost --directory ./www/sramek-garden-center/den-up
+      - python3 -m http.server 8067 -b localhost --directory ./www/sramek-garden-center/
 
   build-infra:
     dir: './infra/src'
