@@ -8,16 +8,16 @@ tasks:
   www-garden-up:
     cmds:
       - python3 -m http.server 8067 -b localhost --directory ./www/sramek-garden-center/
+  
+  www-garden-html-fix:
+    cmds:
+      - for f in $(find ./www/sramek-garden-center/ -name "*.html"); do echo $f && tidy --custom-tags blocklevel -m -i -c $f || true; done
 
   build-infra:
     dir: './infra/src'
     cmds:
       - go fmt
       - go build
-
-  build-html:
-    cmds:
-      - for f in $(find . -name "*.html"); do echo $f && tidy --custom-tags blocklevel -m -i -c $f || true; done
 
   deploy-infra:
     cmds:
