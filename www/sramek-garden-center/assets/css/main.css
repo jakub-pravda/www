@@ -3839,6 +3839,13 @@ input, select, textarea {
 		background-image: linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner_svatby.webp");
 	}
 
+	.bg-mai-img > header {
+		background-image: -moz-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner_udrzby.webp");
+		background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner_udrzby.webp");
+		background-image: -ms-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner_udrzby.webp");
+		background-image: linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner_udrzby.webp");
+	}
+
 	#main > header {
 		padding: 12em 0 10em 0 ;
 		background-attachment: fixed;
