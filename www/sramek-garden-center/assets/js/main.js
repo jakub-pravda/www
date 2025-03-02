@@ -12,9 +12,6 @@ class Header extends HTMLElement {
 	/*remark: this header element must be defined before the main fuction! Main function works with the #menu element, which have to be properly inserted before!*/ 
 	connectedCallback() {
     this.innerHTML = `
-	    <!-- Header -->
-		<header id="header" class="alt">
-		<h1><a href="index.html">Zahradnictví Šrámek</a></h1>
 		<nav id="nav">
 			<ul>
 			<li class="special">
@@ -45,12 +42,11 @@ class Header extends HTMLElement {
 			</li>
 			</ul>
 		</nav>
-		</header><!-- Banner -->
     `;
   }
 }
 
-customElements.define('main-header', Header);
+customElements.define('nav-placeholder', Header);
 
 (function($) {
 
