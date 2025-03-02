@@ -23,10 +23,10 @@ class Header extends HTMLElement {
 					<a href="index.html">Domů</a>
 					</li>
 					<li>
-					<a href="gallery.html">Galerie</a>
+					<a href="galerie.html">Galerie</a>
 					</li>
 					<li>
-					<a href="goods.html">Sortiment</a>
+					<a href="sortiment.html">Sortiment</a>
 					</li>
 					<li>
 					<a href="svatby.html">Svatební kytice</a>
