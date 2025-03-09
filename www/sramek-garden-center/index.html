@@ -30,8 +30,8 @@
   <link rel="stylesheet" href="assets/css/main.css"><noscript>
   <link rel="stylesheet" href="assets/css/noscript.css"></noscript>
   <style type="text/css">
-  iframe.c2 {border:10}
-  img.c1 {width: 17%; height: 17%}
+  iframe.c2 {border: 10px}
+  img.c1 {width: 17%; height: 17%;}
   </style>
 </head>
 <body class="landing is-preload">
@@ -40,30 +40,7 @@
     <!-- Header -->
     <header id="header" class="alt">
       <h1><a href="index.html">Zahradnictví Šrámek</a></h1>
-      <nav id="nav">
-        <ul>
-          <li class="special">
-            <a href="#menu" class=
-            "menuToggle"><span>Menu</span></a>
-            <div id="menu">
-              <ul>
-                <li>
-                  <a href="index.html">Domů</a>
-                </li>
-                <li>
-                  <a href="gallery.html">Galerie</a>
-                </li>
-                <li>
-                  <a href="goods.html">Sortiment</a>
-                </li>
-                <li>
-                  <a href="#three">Kontakt</a>
-                </li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-      </nav>
+      <nav-placeholder></nav-placeholder>
     </header><!-- Banner -->
     <section id="banner">
       <img src="images/banner_logo.png" alt=
@@ -102,8 +79,8 @@
           rádi podělíme. Zaměřujeme se především na prodej rostlin
           a přidruženého sortimentu.<br>
           Prohlédněte si, jak to u nás vypadá v naší <a href=
-          "gallery.html">galerii</a> a nebo prozkoumejte náš
-          <a href="goods.html">sortiment</a>.</p><img src=
+          "galerie.html">galerii</a> a nebo prozkoumejte náš
+          <a href="sortiment.html">sortiment</a>.</p><img src=
           "images/sig.png" alt="těšíme se na vaší návštěvu" class=
           "sig-image">
         </header>
@@ -111,7 +88,7 @@
     </section><!-- Two -->
     <section id="two" class="wrapper alt style2">
       <section class="spotlight">
-        <div class="image"><img src="images/pic01.webp" alt=
+        <div class="image"><img src="images/main01.webp" alt=
         "Zahradnictví Šrámek"></div>
         <div class="content">
           <h2>Venkovní rostliny a dřeviny</h2>
@@ -122,7 +99,7 @@
         </div>
       </section>
       <section class="spotlight">
-        <div class="image"><img src="images/pic02.webp" alt=
+        <div class="image"><img src="images/main02.webp" alt=
         "Květiny"></div>
         <div class="content">
           <h2>Pokojové rostliny</h2>
@@ -133,7 +110,7 @@
         </div>
       </section>
       <section class="spotlight">
-        <div class="image"><img src="images/pic03.webp" alt=
+        <div class="image"><img src="images/main03.webp" alt=
         "Sezonní nabídka"></div>
         <div class="content">
           <h2>Sezónní nabídka</h2>
@@ -144,7 +121,7 @@
         </div>
       </section>
       <section class="spotlight">
-        <div class="image"><img src="images/pic04.webp" alt=
+        <div class="image"><img src="images/main04.webp" alt=
         "Keramika"></div>
         <div class="content">
           <h2>Keramika</h2>
@@ -155,13 +132,38 @@
         </div>
       </section>
       <section class="spotlight">
-        <div class="image"><img src="images/pic05.webp" alt=
+        <div class="image"><img src="images/main06.webp" alt=
+        "Keramika"></div>
+        <div class="content">
+          <h2>Svatební kytice</h2>
+          <p>Připravujete se na nejkrásnější den v životě? Chceme
+          Vám ho pomoct zrealizovat podle Vašich představ. Rádi se
+          postaráme o všechny květinové detaily vaší svatby – od
+          elegantní kytice pro nevěstu, po květinové dekorace pro
+          celou svatbu. Pro více informaví se podívejte do naší
+          sekce <a href="svatby.html">svatební kytice</a>.</p>
+        </div>
+      </section>
+      <section class="spotlight">
+        <div class="image"><img src="images/main07.webp" alt=
+        "Keramika"></div>
+        <div class="content">
+          <h2>Údržby zahrad</h2>
+          <p>Nabízíme širokou paletu zahradnických služeb. Od běžné
+          sézonní údržby, po profesionální péči o trávník.
+          Zakládáme si na individuálním přístupu ke každému
+          klientovi. Více v naší sekci <a href="udrzby.html">údržby
+          zahrad</a>.</p>
+        </div>
+      </section>
+      <section class="spotlight">
+        <div class="image"><img src="images/main05.webp" alt=
         "Ostatní"></div>
         <div class="content">
           <h2>A mnoho dalšího</h2>
           <p>Prozkoumejte celý náš <a href=
-          "goods.html">sortiment</a> a v případě jakýchkoliv dotazů
-          nás neváhejte kontaktovat.</p>
+          "sortiment.html">sortiment</a> a v případě jakýchkoliv
+          dotazů nás neváhejte kontaktovat.</p>
         </div>
       </section>
     </section><!-- Three -->
@@ -189,8 +191,6 @@
             <p>PO - PÁ: 9:00 - 12:00 13:30 - 17:00<br>
             SO: 08:00 - 13:00<br>
             NE: Zavřeno<br></p>
-            <h6>Zimní otevírací doba</h6>
-            24.12. - 20.1. Zavřeno<br></p>
           </li>
         </ul>
       </div>
@@ -199,7 +199,7 @@
       <div class="contid map-responsive">
         <iframe src=
         "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2086.379209084043!2d14.674452445252268!3d50.20152447649439!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470bf1b22bb2f679%3A0xb483640f6e32ae33!2zWmFocmFkbmljdHbDrSDFoHLDoW1law!5e0!3m2!1sen!2scz!4v1693514646495!5m2!1sen!2scz"
-        width="300" height="100" frameborder="0" class="c2"
+        width="300px" height="100px" frameborder="0" class="c2"
         allowfullscreen></iframe>
       </div>
     </section><!-- Footer -->
@@ -228,12 +228,14 @@
       </ul>
     </footer>
   </div><!-- Scripts -->
-  <script src="assets/js/jquery.min.js"></script> 
-  <script src="assets/js/jquery.scrollex.min.js"></script> 
-  <script src="assets/js/jquery.scrolly.min.js"></script> 
-  <script src="assets/js/browser.min.js"></script> 
-  <script src="assets/js/breakpoints.min.js"></script> 
-  <script src="assets/js/util.js"></script> 
-  <script src="assets/js/main.js"></script>
+  <script defer src=
+  "assets/vendor/glightbox/js/glightbox.min.js"></script> 
+  <script defer src="assets/js/jquery.min.js"></script> gst
+  <script defer src="assets/js/jquery.scrollex.min.js"></script> 
+  <script defer src="assets/js/jquery.scrolly.min.js"></script> 
+  <script defer src="assets/js/browser.min.js"></script> 
+  <script defer src="assets/js/breakpoints.min.js"></script> 
+  <script defer src="assets/js/util.js"></script> 
+  <script defer src="assets/js/main.js"></script>
 </body>
 </html>

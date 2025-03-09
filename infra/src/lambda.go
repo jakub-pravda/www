@@ -16,6 +16,7 @@ func lambdaRedirect(ctx *pulumi.Context) *lambda.Function {
 	lambdaArchive := fmt.Sprintf("../dist/%s.zip", lambdaName)
 
 	eastRegion, err := aws.NewProvider(ctx, fmt.Sprintf("lambda-redirect-east"), &aws.ProviderArgs{
+		// Cloudfront control plane resides in us-east-1 region, so edge lambdas must be deployed there
 		Region: pulumi.String("us-east-1"),
 	})
 
@@ -98,6 +99,7 @@ func lambdaRedirect(ctx *pulumi.Context) *lambda.Function {
 		SourceCodeHash: pulumi.String(lambda_lookup_file.OutputBase64sha256),
 		Runtime:        pulumi.String(lambda.RuntimeNodeJS18dX),
 		Publish:        pulumi.Bool(true),
+		MemorySize:    	pulumi.Int(256),
 	}, pulumi.DependsOn([]pulumi.Resource{lambdaLogging}), pulumi.Provider(eastRegion))
 
 	if err != nil {

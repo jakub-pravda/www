@@ -2723,6 +2723,14 @@ input, select, textarea {
 			background-color: rgb(10, 92, 54);;
 		}
 
+		.spotlight:nth-child(6) {
+			background-color: rgb(15, 81, 50);
+		}
+
+		.spotlight:nth-child(7) {
+			background-color: rgb(10, 92, 54);;
+		}
+
 		@media screen and (max-width: 1280px) {
 
 			.spotlight .image {
@@ -3825,12 +3833,29 @@ input, select, textarea {
 
 /* Main */
 
-	#main > header {
-		padding: 12em 0 10em 0 ;
+	.bg-def-img > header {
 		background-image: -moz-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner.webp");
 		background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner.webp");
 		background-image: -ms-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner.webp");
 		background-image: linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner.webp");
+	}
+
+	.bg-wed-img > header {
+		background-image: -moz-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner_svatby.webp");
+		background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner_svatby.webp");
+		background-image: -ms-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner_svatby.webp");
+		background-image: linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner_svatby.webp");
+	}
+
+	.bg-mai-img > header {
+		background-image: -moz-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner_udrzby.webp");
+		background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner_udrzby.webp");
+		background-image: -ms-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner_udrzby.webp");
+		background-image: linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner_udrzby.webp");
+	}
+
+	#main > header {
+		padding: 12em 0 10em 0 ;
 		background-attachment: fixed;
 		background-position: center center;
 		background-repeat: no-repeat;

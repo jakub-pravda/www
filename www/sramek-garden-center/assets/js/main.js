@@ -4,6 +4,50 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
+/**
+ * Header elements
+ */
+
+class Header extends HTMLElement {
+	/*remark: this header element must be defined before the main fuction! Main function works with the #menu element, which have to be properly inserted before!*/ 
+	connectedCallback() {
+    this.innerHTML = `
+		<nav id="nav">
+			<ul>
+			<li class="special">
+				<a href="#menu" class=
+				"menuToggle"><span>Menu</span></a>
+				<div id="menu">
+				<ul>
+					<li>
+					<a href="index.html">Domů</a>
+					</li>
+					<li>
+					<a href="galerie.html">Galerie</a>
+					</li>
+					<li>
+					<a href="sortiment.html">Sortiment</a>
+					</li>
+					<li>
+					<a href="svatby.html">Svatební kytice</a>
+					</li>
+					<li>
+					<a href="udrzby.html">Údržby zahrad</a>
+					</li>
+					<li>
+					<a href="#three">Kontakt</a>
+					</li>
+				</ul>
+				</div>
+			</li>
+			</ul>
+		</nav>
+    `;
+  }
+}
+
+customElements.define('nav-placeholder', Header);
+
 (function($) {
 
 	var	$window = $(window),
@@ -79,5 +123,11 @@
 			});
 
 		}
+
+	// Initiate glightbox
+		const glightbox = GLightbox({
+			selector: '.glightbox',
+			preload: false
+		});
 
 })(jQuery);

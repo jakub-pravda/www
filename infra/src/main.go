@@ -77,7 +77,7 @@ func deployProject(ctx *pulumi.Context, project staticSiteProject, logsBucket *s
 	contentBucket := createContentBucket(ctx, project, false)
 
 	if len(domains) > 0 {
-		cdn := instantiateCloudfront(ctx, contentBucket, logsBucket, domains, project.indexDoc, redirectLambda)
+		cdn := instantiateCloudfront(ctx, contentBucket, logsBucket, domains, project.indexDoc, project.name, redirectLambda)
 		createAliasRecords(ctx, cdn, domains)
 		ctx.Export(fmt.Sprintf("%s-cloudfrontDomain", project.name), cdn.DomainName)
 	} else {
@@ -126,9 +126,10 @@ func instantiateCloudfront(
 	logsBucket *s3.Bucket,
 	domains []string,
 	indexDoc string,
+	projectName string,
 	redirectLambda *lambda.Function) *cloudfront.Distribution {
 	mainDomain := domains[0]
-	log.Printf("Creating Cloudfront distribution for domain: %s\n", mainDomain)
+	log.Printf("Creating Cloudfront distribution for project: %s\n", projectName)
 
 	viewerLambdaAssociation := cloudfront.DistributionDefaultCacheBehaviorLambdaFunctionAssociationArgs{
 		// Redirect lambda handles redirecting from non www domain to www domain
@@ -178,7 +179,7 @@ func instantiateCloudfront(
 		LoggingConfig: cloudfront.DistributionLoggingConfigArgs{
 			Bucket:         logsBucket.BucketDomainName,
 			IncludeCookies: pulumi.Bool(false),
-			Prefix:         pulumi.String(fmt.Sprintf("%s/", mainDomain)),
+			Prefix:         pulumi.String(fmt.Sprintf("%s/", projectName)),
 		},
 
 		// Set restrictions for our websites, at this moment we don't need any
