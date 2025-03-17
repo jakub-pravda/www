@@ -99,7 +99,7 @@ func lambdaRedirect(ctx *pulumi.Context) *lambda.Function {
 		SourceCodeHash: pulumi.String(lambda_lookup_file.OutputBase64sha256),
 		Runtime:        pulumi.String(lambda.RuntimeNodeJS18dX),
 		Publish:        pulumi.Bool(true),
-		MemorySize:    	pulumi.Int(256),
+		MemorySize:     pulumi.Int(128),
 	}, pulumi.DependsOn([]pulumi.Resource{lambdaLogging}), pulumi.Provider(eastRegion))
 
 	if err != nil {
