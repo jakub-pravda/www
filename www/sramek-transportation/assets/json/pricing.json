@@ -96,6 +96,10 @@
             "name": "Mulčovací kůra volně ložená",
             "price": "1100,-Kč/m³"
         },
+        "other-compost": {
+            "name": "Kompost",
+            "price": "950,-Kč/t"
+        },
         "other-bark-mulch-packed": {
             "name": "Mulčovací kůra balená (profi) 70 litrů paletový prodej",
             "price": "110,-Kč/kus"
@@ -151,8 +155,16 @@
     },
     "containers": {
         "container-3m3-landfill": {
-            "name": "5t - 3,5m³ (suť, zemina)",
-            "price": "3700,-Kč, zemina 3500,-Kč, BIO 2800,-Kč"
+            "name": "5t - 3,5m³ (suť)",
+            "price": "3700,-Kč"
+        },
+        "container-3m3-landfill-earth": {
+            "name": "5t - 3,5m³ (zemina)",
+            "price": "3500,-Kč"
+        },
+        "container-3m3-landfill-bio": {
+            "name": "5t - 3,5m³ (BIO odpad)",
+            "price": "2800,-Kč"
         },
         "container-3m3": {
             "name": "5t - 3,5m³ (odpad vyjma nebezpečných)",
@@ -160,15 +172,27 @@
         },
         "container-6m3": {
             "name": "5t - 6m³ (odpad vyjma nebezpečných)",
-            "price": "6700,-Kč, BIO 3500,-Kč"
+            "price": "6700,-Kč"
+        },
+        "container-6m3-bio": {
+            "name": "5t - 6m³ (BIO odpad)",
+            "price": "3500,-Kč"
         },
         "container-10m3": {
             "name": "5t - 10m³ (odpad vyjma nebezpečných)",
-            "price": "7700,-Kč, BIO 4000,-Kč"
+            "price": "7700,-Kč"
+        },
+        "container-10m3-bio": {
+            "name": "5t - 10m³ (BIO odpad)",
+            "price": "4000,-Kč"
         },
         "container-6m3-10t": {
-            "name": "10t - 6,5m³ (suť, zemina)",
-            "price": "6650,-Kč, zemina 6000,-Kč"
+            "name": "10t - 6,5m³ (suť)",
+            "price": "6650,-Kč"
+        },
+        "container-6m3-10t-earth": {
+            "name": "10t - 6,5m³ (zemina)",
+            "price": "6000,-Kč"
         }
     },
     "containers-transport": {
