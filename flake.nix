@@ -17,7 +17,6 @@
           packages = with pkgs; [
               awscli2
               go
-              go-task
               html-tidy
               nodejs_22
               python3
