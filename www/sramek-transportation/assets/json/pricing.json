@@ -105,16 +105,16 @@
             "price": "110,-Kč/kus"
         },
         "other-garden-soil": {
-            "name": "Zahradní zemina s obsahem kompostu (na záhony)",
-            "price": "650,-Kč/t"
+            "name": "Tříděná zemina na zásypy a dorovnání",
+            "price": "200,-Kč/t"
         },
         "other-graded-soil": {
-            "name": "Tříděná zemina 0/12",
+            "name": "Tříděná zemina vhodná na trávník a záhony",
             "price": "400,-Kč/t"
         },
         "other-ungraded-soil": {
-            "name": "Netříděná zemina",
-            "price": "200,-Kč/t"
+            "name": "Kompost",
+            "price": "950,-Kč/t"
         },
         "other-sandstone": {
             "name": "Pískovec volně ložený",
