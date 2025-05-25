@@ -66,11 +66,15 @@
         },
         "pebble-fraction-20-70": {
             "name": "Kačírek okrasný 20/70 šedobílý",
-            "price": "1000,-Kč/t"
+            "price": "1250,-Kč/t"
         },
         "pebble-fraction-30-120": {
             "name": "Kačírek okrasný 30/120 šedobílý",
-            "price": "1000,-Kč/t"
+            "price": "1250,-Kč/t"
+        },
+        "pebble-fraction-4-8": {
+            "name": "Okrasná drť 4/8 šedobílá",
+            "price": "1500,-Kč/t"
         },
         "sand-fraction-0-4": {
             "name": "Betonářský tříděný 0/4",
@@ -112,10 +116,6 @@
             "name": "Tříděná zemina vhodná na trávník a záhony",
             "price": "400,-Kč/t"
         },
-        "other-ungraded-soil": {
-            "name": "Kompost",
-            "price": "950,-Kč/t"
-        },
         "other-sandstone": {
             "name": "Pískovec volně ložený",
             "price": "2000,-Kč/t"
@@ -156,7 +156,7 @@
     "containers": {
         "container-3m3-landfill": {
             "name": "5t - 3,5m³ (suť)",
-            "price": "3700,-Kč"
+            "price": "3500,-Kč"
         },
         "container-3m3-landfill-earth": {
             "name": "5t - 3,5m³ (zemina)",
@@ -264,11 +264,15 @@
         },
         "tools-carrier": {
             "name": "Nosič nářadí Ferari 340 (zakladač trávníku, rotační brány, pařezová fréza, rotavátor, mulčovač)",
-            "price": "950,-Kč"
+            "price": "950,-Kč/hod"
         },
-        "steppe-farmer-blieet": {
-            "name": "Štěpkovač Blieet",
-            "price": "1200,-Kč"
+        "steppe-farmer-eliet": {
+            "name": "Štěpkovač Eliet",
+            "price": "1200,-Kč/hod"
+        },
+        "loader-ditch-witch-sk800": {
+            "name": "Pásový nakladač DITCH WITCH SK800",
+            "price": "800,-Kč/hod"
         }
     },
     "garden-maintenance": {
