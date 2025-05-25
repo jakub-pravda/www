@@ -150,6 +150,7 @@ class Header extends HTMLElement {
                 <ul>
                   <li><a href="pronajemkontejneru.html">Pronájem kontejnerů</a></li>
                   <li><a href="zemniprace.html">Zemní práce</a></li>
+                  <li><a href="stavebniprace.html">Drobné stavební práce</a></li>
                   <li><a href="deponie.html">Doprava materiálu a deponie</a></li>
                   <li><a href="recyklace.html">Recyklace</a></li>
                   <li><a href="udrzbyzahrad.html">Údržby zahrad</a></li>

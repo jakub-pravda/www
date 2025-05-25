@@ -16,7 +16,7 @@
       <loc>https://www.sramek-autodoprava.cz/pronajemkontejneru.html</loc>
       <lastmod>2025-25-05</lastmod>
       <changefreq>monthly</changefreq>
-      <priority>0.9</priority>
+      <priority>0.5</priority>
    </url>
    <url>
       <loc>https://www.sramek-autodoprava.cz/zemniprace.html</loc>
@@ -56,6 +56,12 @@
    </url>
    <url>
       <loc>https://www.sramek-autodoprava.cz/recyklace.html</loc>
+      <lastmod>2025-25-05</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+   </url>
+    <url>
+      <loc>https://www.sramek-autodoprava.cz/stavebniprace.html</loc>
       <lastmod>2025-25-05</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
