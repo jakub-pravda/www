@@ -1,0 +1,25 @@
+{
+  "name": "sramek-garden-center",
+  "version": "1.0.0",
+  "description": "zahradnictvi sramek",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jakub-pravda/www.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jakub-pravda/www/issues"
+  },
+  "homepage": "https://github.com/jakub-pravda/www#readme",
+  "dependencies": {
+    "jquery": "^3.7.1",
+    "jquery.scrollex": "^0.2.1"
+  },
+  "devDependencies": {
+    "parcel": "^2.15.4"
+  }
+}

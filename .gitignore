@@ -26,3 +26,8 @@ garden-store-sramek
 
 # vscode
 .vscode
+
+# node
+node_modules/
+dist/
+.parcel-cache/
