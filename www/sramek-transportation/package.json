@@ -1,0 +1,15 @@
+{
+  "name": "sramek-transportation",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "buildstatic": "npx parcel build index.html && cp assets/json/pricing.json dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "glightbox": "^3.3.1"
+  }
+}
