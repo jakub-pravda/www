@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "glightbox": "^3.3.1"
+    "glightbox": "^3.3.1",
+    "swiper": "^12.0.1"
   }
 }

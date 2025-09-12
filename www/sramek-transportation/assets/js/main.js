@@ -1,5 +1,7 @@
 import GLightbox from 'glightbox';
 import 'glightbox/dist/css/glightbox.css';
+import Swiper from 'swiper';
+import 'swiper/swiper.min.css'
 
 document.addEventListener('DOMContentLoaded', () => {
   "use strict";
