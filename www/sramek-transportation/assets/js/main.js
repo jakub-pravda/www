@@ -2,10 +2,10 @@ import GLightbox from 'glightbox';
 import 'glightbox/dist/css/glightbox.css';
 import Swiper from 'swiper';
 import 'swiper/swiper.min.css'
-import 'fontawesome-free/css/all.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import '@fortawesome/fontawesome-free/css/all.css';
 
 document.addEventListener('DOMContentLoaded', () => {
   "use strict";
