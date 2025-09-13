@@ -3,6 +3,8 @@ window.$ = window.jQuery = $;
 
 import "jquery.scrollex";
 import "./jquery.scrolly.min.js";
+import GLightbox from 'glightbox';
+import 'glightbox/dist/css/glightbox.css';
 
 /**
  * Header elements
