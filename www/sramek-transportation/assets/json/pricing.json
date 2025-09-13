@@ -4,6 +4,18 @@
             "name": "Lomový kámen 0/4",
             "price": "450,-Kč/t"
         },
+        "stone-fraction-0-4-thresh-red": {
+            "name": "Lomový kámen 0/4 červeno-hnědý (mlat)",
+            "price": "1200,-Kč/t"
+        },
+        "stone-fraction-0-4-thresh-ocher": {
+            "name": "Lomový kámen 0/4 okrový (mlat)",
+            "price": "1200,-Kč/t"
+        },
+        "stone-fraction-0-4-thresh-grey": {
+            "name": "Lomový kámen 0/4 šedo-olivový (mlat)",
+            "price": "1200,-Kč/t"
+        },
         "stone-fraction-0-8": {
             "name": "Lomový kámen 0/8",
             "price": "450,-Kč/t"
@@ -18,7 +30,7 @@
         },
         "stone-fraction-4-8": {
             "name": "Lomový kámen 4/8",
-            "price": "780,-Kč/t"
+            "price": "850,-Kč/t"
         },
         "stone-fraction-8-16": {
             "name": "Lomový kámen 8/16",
@@ -58,7 +70,15 @@
         },
         "pebble-fraction-100-1000": {
             "name": "Kačírek okrasný 100/1000",
-            "price": "5000,-Kč/t"
+            "price": "10000,-Kč/t"
+        },
+        "pebble-fraction-100-250": {
+            "name": "Kačírek okrasný 100/250 (labské valouny)",
+            "price": "8000,-Kč/t"
+        },
+        "granite-100-250": {
+            "name": "Žulový kámen 220/1000",
+            "price": "1500,-Kč/t"
         },
         "pebble-fraction-16-22": {
             "name": "Kačírek okrasný 16/22 šedobílý",
@@ -77,19 +97,19 @@
             "price": "1500,-Kč/t"
         },
         "sand-fraction-0-4": {
-            "name": "Betonářský tříděný 0/4",
+            "name": "Betonářský tříděný písek 0/4",
             "price": "380,-Kč/t"
         },
         "sand-fraction-0-2": {
-            "name": "Maltový tříděný 0/2",
+            "name": "Maltový tříděný písek 0/2",
             "price": "450,-Kč/t"
         },
         "sand-fraction-1-2": {
-            "name": "Křemičitý bílý na zásyp 1/2",
+            "name": "Křemičitý bílý písek na zásyp 1/2",
             "price": "950,-Kč/t"
         },
         "sand-fraction-x-x": {
-            "name": "Zásypový /netříděný/ ",
+            "name": "Zásypový písek /netříděný/ ",
             "price": "250,-Kč/t"
         },
         "other-gardening-substrate": {
