@@ -2,13 +2,13 @@ config:
   aws:region: eu-central-1
   sramek-garden-center:cors: "*"
   # Garden Center (dir path is from source directory)
-  sramek-garden-center:dir: ../../www/sramek-garden-center
+  sramek-garden-center:dir: ../../www/sramek-garden-center/dist
   sramek-garden-center:bucket-path: www/sramek-garden-center
   sramek-garden-center:domain: zahradnictvi-sramek.cz
   sramek-garden-center:error-doc: error.html
   sramek-garden-center:index-doc: index.html
   # Transportation (dir path is from source directory)
-  sramek-transportation:dir: ../../www/sramek-transportation
+  sramek-transportation:dir: ../../www/sramek-transportation/dist
   sramek-transportation:bucket-path: www/sramek-transportation
   sramek-transportation:domain: sramek-autodoprava.cz
   sramek-transportation:error-doc: error.html
