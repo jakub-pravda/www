@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "sramek-garden-center": "file:www/sramek-garden-center",
+    "sramek-transportation": "file:www/sramek-transportation"
+  }
+}

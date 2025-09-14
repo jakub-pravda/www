@@ -97,7 +97,7 @@ func lambdaRedirect(ctx *pulumi.Context) *lambda.Function {
 		Role:           iamForLambda.Arn,
 		Handler:        pulumi.String("lambda_redirect.handler"),
 		SourceCodeHash: pulumi.String(lambda_lookup_file.OutputBase64sha256),
-		Runtime:        pulumi.String(lambda.RuntimeNodeJS18dX),
+		Runtime:        pulumi.String("nodejs20.x"),
 		Publish:        pulumi.Bool(true),
 		MemorySize:     pulumi.Int(128),
 	}, pulumi.DependsOn([]pulumi.Resource{lambdaLogging}), pulumi.Provider(eastRegion))

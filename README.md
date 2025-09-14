@@ -1,7 +1,8 @@
-# WWW
+# Sramek small business
 
-This repository contains my websites. The website is hosted on AWS S3 and CloudFront. The infrastructure is managed by Pulumi.
+Sramek small business content
 
-## Projects
+## WWW
 
-* [Zahradnictví Šrámek](https://zahradnictvi-sramek.cz) - A website for a small family business. The website is hosted on AWS S3 and CloudFront. The infrastructure is managed by Pulumi.
+* [Autodoprava Šrámek](https://www.sramek-autodoprava.cz/)
+* [Zahradnictví Šrámek](https://zahradnictvi-sramek.cz)

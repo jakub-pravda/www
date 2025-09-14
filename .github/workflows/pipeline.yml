@@ -1,34 +1,15 @@
 name: "Deploy main branch"
 on:
   pull_request:
-  push:
 jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - uses: cachix/install-nix-action@v22
+    - uses: cachix/install-nix-action@v31
       with:
         github_access_token: ${{ secrets.GITHUB_TOKEN }}
-    # == Build ==
-    - name: "Infra build and format"
-      run: nix develop --command bash -c "task build-infra"
-    # == Format ==
-    # - name: "HTML check and format"
-    #   run: nix develop --command bash -c "task build-html"
-    - uses: EndBug/add-and-commit@v9
-      with:
-        add: '.'
-        author_name: GitHub Actions
-        author_email: jacfal.tech@protonmail.com
-        message: "Github Actions: Code fmt"
-  # cd:
-  #   #if: github.ref == 'refs/heads/main'
-  #   needs: [ci]
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: actions/checkout@v3
-  #   - uses: cachix/install-nix-action@v22
-  #   - run: nix develop --command bash -c "deploy"
-  #     env:
-  #       PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+    - name: "Parcel build garden center website"
+      run: nix develop --command bash -c "npm install ./www/sramek-garden-center/ && npx parcel build www/sramek-garden-center/index.html"
+    - name: "Parcel build transportation website"
+      run: nix develop --command bash -c "npm install ./www/sramek-transportation/ && npx parcel build www/sramek-transportation/index.html"

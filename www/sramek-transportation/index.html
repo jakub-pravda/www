@@ -5,6 +5,15 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JMVGEHKLSY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JMVGEHKLSY');
+  </script>
+ 
   <title>Jiří Šrámek autodoprava a zemní práce</title>
   <meta name="keywords" content="zemní práce, kontejnery, autodoprava, šrámek, stará boleslav, brandýs nad labem, bagrování, základy staveb, recyklace, deponie, údržba zahrad, zahradnické služby">
   <meta name="description" content="Profesionální zemní práce, pronájem odpadních kontejnerů, zahradnické služby, deponie a rozvoz materiálu, údržba zahrad v Brandýs nad Labem-Stará Boleslav. Rychlé a spolehlivé služby.">
@@ -17,20 +26,45 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
 </head>
 
 <body>
-  <main-header></main-header>
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
+      <a href="index.html" class="logo d-flex align-items-center">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img class="img-fluid img-thumbnail" src="images/logo.png" alt=""> -->
+        <h1>Jiří Šrámek</h1>
+      </a>
+
+      <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+      <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a href="index.html" class="active">Domů</a></li>
+          <li><a href="cenik.html">Ceník služeb</a></li>
+          <li class="dropdown"><a href="#"><span>Služby</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+              <li><a href="pronajemkontejneru.html">Pronájem kontejnerů</a></li>
+              <li><a href="zemniprace.html">Zemní práce</a></li>
+              <li><a href="stavebniprace.html">Drobné stavební práce</a></li>
+              <li><a href="deponie.html">Doprava materiálu a deponie</a></li>
+              <li><a href="recyklace.html">Recyklace</a></li>
+              <li><a href="udrzbyzahrad.html">Údržby zahrad</a></li>
+              <li><a href="zahradnictvi.html">Zahradnictví</a></li>
+            </ul>
+          </li>
+          <li><a href="flotila.html">Vozový park</a></li>
+          <li><a class="get-a-quote" href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header>
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="hero d-flex align-items-center">
     <div class="container">
@@ -133,7 +167,7 @@
 
         <div class="row justify-content-center">
           <div class="col-lg-8 text-center">
-            <a class="cta-btn" href="contact.html">Kontaktujte nás</a>
+            <a class="cta-btn" href="kontakt.html">Kontaktujte nás</a>
           </div>
         </div>
 
@@ -157,7 +191,7 @@
                 <div class="card-img">
                   <img src="images/main-services-container.webp" alt="pronájem kontejnerů" class="img-fluid">
                 </div>
-                <h3><a href="containerrent.html" class="stretched-link">Pronájem kontejnerů</a></h3>
+                <h3><a href="pronajemkontejneru.html" class="stretched-link">Pronájem kontejnerů</a></h3>
                 <p>Nabízíme k pronájmu kontejnery na suť, zeminu, bioodpad a směsný odpad ve velikostí od 3m³ do 22m³</p>
               </div>
             </div><!-- End Card Item -->
@@ -167,7 +201,7 @@
                 <div class="card-img">
                   <img src="images/main-services-earthwork.webp" alt="zemní práce" class="img-fluid">
                 </div>
-                <h3><a href="earthworks.html" class="stretched-link">Zemní práce</a></h3>
+                <h3><a href="zemniprace.html" class="stretched-link">Zemní práce</a></h3>
                 <p>Nabízíme širokou paletu zemních prací. Vykopání základů, demolice domu či vykopání malého jezírka pro nás není problém.</p>
               </div>
             </div><!-- End Card Item -->
@@ -177,7 +211,7 @@
                 <div class="card-img">
                   <img src="images/main-services-depo.webp" alt="deponie a prodej materiálů" class="img-fluid">
                 </div>
-                <h3><a href="landfill.html" class="stretched-link">Doprava materiálu a deponie</a></h3>
+                <h3><a href="deponie.html" class="stretched-link">Doprava materiálu a deponie</a></h3>
                 <p>Nabízíme široké spektrum materiálů od jemného písku, přes říční kačírek, lomový kámen, okrasné valouny až po zemní substráty a zeminy.</p>
               </div>
             </div>
@@ -188,10 +222,10 @@
             <div class="col-lg-4 col-md-6">
               <div class="card">
                 <div class="card-img">
-                  <img src="images/main-services-recycle.webp" alt="recyklace materiálů" class="img-fluid">
+                  <img src="images/main-services-construction.webp" alt="drobné stavební práce" class="img-fluid">
                 </div>
-                <h3><a href="gardenmaintenance.html" class="stretched-link">Recyklace</a></h3>
-                <p>Zabýváme se také recyklací a tříděním materiálu. Třídič může zpracovávat písky, štěrky, zeminu kompost nebo recyklát.</p> 
+                <h3><a href="stavebniprace.html" class="stretched-link">Drobné stavební práce</a></h3>
+                <p>Nabízíme širokou paletu drobných stavebních prací. Stavba plotu, pokládka zámkové dlažby, demoliční a vyklízecí práce.</p> 
               </div>
             </div><!-- End Card Item -->
   
@@ -200,7 +234,7 @@
                 <div class="card-img">
                   <img src="images/main-services-garden-maintenance.webp" alt="Údržby zahrad" class="img-fluid">
                 </div>
-                <h3><a href="gardenmaintenance.html" class="stretched-link">Údržby zahrad</a></h3>
+                <h3><a href="udrzbyzahrad.html" class="stretched-link">Údržby zahrad</a></h3>
                 <p>Nabízíme širokou paletu zahradnických služeb. Od běžné sézonní údržby, po profesionální péči o trávník. Zakládáme si na individuálním přístupu ke každému klientovi.</p> 
               </div>
             </div><!-- End Card Item -->
@@ -210,7 +244,7 @@
                 <div class="card-img">
                   <img src="images/main-services-gardencenter.webp" alt="Zahradnictví Šrámek" class="img-fluid">
                 </div>
-                <h3><a href="gardencenter.html" class="stretched-link">Zahradnictví</a></h3>
+                <h3><a href="zahradnictvi.html" class="stretched-link">Zahradnictví</a></h3>
                 <p>Provozujeme taktéž malé rodinné zahradnictví ve Staré Boleslavi. Zaměřujeme se především na prodej rostlin a přidruženého sortimentu.</p> 
               </div>
             </div><!-- End Card Item -->
@@ -227,13 +261,8 @@
 
   <div id="preloader"></div>
 
-  <!-- Vendor JS Files -->
-  <script defer src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script defer src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script defer src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-
   <!-- Template Main JS File -->
-  <script defer src="assets/js/main.js"></script>
+  <script src="assets/js/main.js" type="module"></script>
 
 </body>
 

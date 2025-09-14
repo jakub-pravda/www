@@ -1,4 +1,4 @@
-fetch('assets/json/pricing.json')
+fetch('/pricing.json')
   .then(response => response.json())
   .then(data => {
     for (let section in data) {

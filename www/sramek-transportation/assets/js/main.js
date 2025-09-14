@@ -1,3 +1,12 @@
+import GLightbox from 'glightbox';
+import 'glightbox/dist/css/glightbox.css';
+import Swiper from 'swiper';
+import 'swiper/swiper.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import '@fortawesome/fontawesome-free/css/all.css';
+
 document.addEventListener('DOMContentLoaded', () => {
   "use strict";
 
@@ -145,19 +154,20 @@ class Header extends HTMLElement {
           <nav id="navbar" class="navbar">
             <ul>
               <li><a href="index.html" class="active">Domů</a></li>
-              <li><a href="pricing.html">Ceník služeb</a></li>
+              <li><a href="cenik.html">Ceník služeb</a></li>
               <li class="dropdown"><a href="#"><span>Služby</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                 <ul>
-                  <li><a href="containerrent.html">Pronájem kontejnerů</a></li>
-                  <li><a href="earthworks.html">Zemní práce</a></li>
-                  <li><a href="landfill.html">Doprava materiálu a deponie</a></li>
-                  <li><a href="recycle.html">Recyklace</a></li>
-                  <li><a href="gardenmaintenance.html">Údržby zahrad</a></li>
-                  <li><a href="gardencenter.html">Zahradnictví</a></li>
+                  <li><a href="pronajemkontejneru.html">Pronájem kontejnerů</a></li>
+                  <li><a href="zemniprace.html">Zemní práce</a></li>
+                  <li><a href="stavebniprace.html">Drobné stavební práce</a></li>
+                  <li><a href="deponie.html">Doprava materiálu a deponie</a></li>
+                  <li><a href="recyklace.html">Recyklace</a></li>
+                  <li><a href="udrzbyzahrad.html">Údržby zahrad</a></li>
+                  <li><a href="zahradnictvi.html">Zahradnictví</a></li>
                 </ul>
               </li>
-              <li><a href="fleet.html">Vozový park</a></li>
-              <li><a class="get-a-quote" href="contact.html">Kontakt</a></li>
+              <li><a href="flotila.html">Vozový park</a></li>
+              <li><a class="get-a-quote" href="kontakt.html">Kontakt</a></li>
             </ul>
           </nav><!-- .navbar -->
 

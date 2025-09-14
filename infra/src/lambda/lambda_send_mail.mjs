@@ -4,13 +4,13 @@ const corsHeaders = {
   "Access-Control-Allow-Origin": "https://www.sramek-autodoprava.cz",
   "Access-Control-Allow-Headers": "*",
   "Access-Control-Allow-Methods": "OPTIONS,POST",
-}
+};
 
 export const handler = async (event) => {
-  // decode from base 64
-  const decodedBody = atob(event.body);
+  // decode from base 64 with proper UTF-8 handling
+  const decodedBody = Buffer.from(event.body, "base64").toString("utf-8");
   let body = JSON.parse(decodedBody);
-  
+
   console.info("Form request" + body);
 
   const command = new SendEmailCommand({
@@ -19,9 +19,15 @@ export const handler = async (event) => {
     },
     Message: {
       Body: {
-        Text: { Data: `Name: ${body.name}\nEmail: ${body.email}\n\nMessage: ${body.message}` },
+        Text: {
+          Data: `Name: ${body.name}\nEmail: ${body.email}\n\nMessage: ${body.message}`,
+          Charset: "UTF-8",
+        },
       },
-      Subject: { Data: `Order from ${body.name}` },
+      Subject: {
+        Data: `Order from ${body.name}`,
+        Charset: "UTF-8",
+      },
     },
     Source: "form@sramek-autodoprava.cz",
   });
